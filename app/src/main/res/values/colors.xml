@@ -1,10 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+        <!-- Básicos -->
+        <color name="white">#FFFFFF</color>
+        <color name="black">#000000</color>
+        <color name="gray_light">#E0E0E0</color>
+        <color name="gray">#9E9E9E</color>
+        <color name="gray_dark">#424242</color>
+
+        <!-- Rojos -->
+        <color name="red_50">#FFEBEE</color>
+        <color name="red_100">#FFCDD2</color>
+        <color name="red_300">#E57373</color>
+        <color name="red_500">#F44336</color>
+        <color name="red_700">#D32F2F</color>
+        <color name="red_900">#B71C1C</color>
+
+        <!-- Rosas -->
+        <color name="pink_100">#F8BBD0</color>
+        <color name="pink_300">#F06292</color>
+        <color name="pink_500">#E91E63</color>
+        <color name="pink_700">#C2185B</color>
+
+        <!-- Morados -->
+        <color name="purple_100">#E1BEE7</color>
+        <color name="purple_300">#BA68C8</color>
+        <color name="purple_500">#9C27B0</color>
+        <color name="purple_700">#7B1FA2</color>
+        <color name="deep_purple_300">#9575CD</color>
+        <color name="deep_purple_500">#673AB7</color>
+
+        <!-- Azules -->
+        <color name="blue_100">#BBDEFB</color>
+        <color name="blue_300">#64B5F6</color>
+        <color name="blue_500">#2196F3</color>
+        <color name="blue_700">#1976D2</color>
+        <color name="blue_900">#0D47A1</color>
+
+        <!-- Cian -->
+        <color name="cyan_100">#B2EBF2</color>
+        <color name="cyan_300">#4DD0E1</color>
+        <color name="cyan_500">#00BCD4</color>
+        <color name="cyan_700">#0097A7</color>
+
+        <!-- Verdes -->
+        <color name="green_100">#C8E6C9</color>
+        <color name="green_300">#81C784</color>
+        <color name="green_500">#4CAF50</color>
+        <color name="green_700">#388E3C</color>
+        <color name="green_900">#1B5E20</color>
+
+        <!-- Lima -->
+        <color name="lime_200">#E6EE9C</color>
+        <color name="lime_400">#D4E157</color>
+        <color name="lime_600">#C0CA33</color>
+
+        <!-- Amarillos -->
+        <color name="yellow_100">#FFF9C4</color>
+        <color name="yellow_300">#FFF176</color>
+        <color name="yellow_500">#FFEB3B</color>
+        <color name="yellow_700">#FBC02D</color>
+
+        <!-- Naranjas -->
+        <color name="orange_100">#FFE0B2</color>
+        <color name="orange_300">#FFB74D</color>
+        <color name="orange_500">#FF9800</color>
+        <color name="orange_700">#F57C00</color>
+
+        <!-- Marrones -->
+        <color name="brown_100">#D7CCC8</color>
+        <color name="brown_300">#A1887F</color>
+        <color name="brown_500">#795548</color>
+        <color name="brown_700">#5D4037</color>
+
+        <!-- Tonos UI útiles -->
+        <color name="success">#4CAF50</color>
+        <color name="warning">#FFC107</color>
+        <color name="error">#F44336</color>
+        <color name="info">#2196F3</color>
+
+        <color name="background_light">#F5F5F5</color>
+        <color name="background_dark">#121212</color>
+
+        <color name="divider_light">#DDDDDD</color>
+        <color name="divider_dark">#2C2C2C</color>
+
+        <color name="text_primary_light">#212121</color>
+        <color name="text_secondary_light">#757575</color>
+        <color name="text_primary_dark">#FFFFFF</color>
+        <color name="text_secondary_dark">#BDBDBD</color>
+
 </resources>
