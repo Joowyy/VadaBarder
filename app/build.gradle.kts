@@ -59,5 +59,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.navigation:navigation-fragment:2.9.5")
     implementation("androidx.navigation:navigation-ui:2.9.5")
+    //implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 
 }
