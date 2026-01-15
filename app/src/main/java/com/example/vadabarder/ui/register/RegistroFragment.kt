@@ -1,15 +1,14 @@
-package com.example.vadabarder
+package com.example.vadabarder.ui.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.Navigator
-import androidx.navigation.fragment.findNavController
+import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentRegistroBinding
 
 class RegistroFragment : Fragment() {
@@ -38,6 +37,43 @@ class RegistroFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnRegistro.setOnClickListener {
+
+            val user = binding.editTextNombre.text
+            val correo = binding.editTextCorreo.text
+            val psswd = binding.editTextPsswd.text
+
+            if (psswd.isEmpty() || correo.isEmpty()) {
+
+                if (user.isEmpty()) {
+
+                    binding.editTextNombre.error = "Campo obligatorio"
+
+                }
+
+                if (correo.isEmpty()) {
+
+                    binding.editTextCorreo.error = "Campo obligatorio"
+
+                }
+
+                if (psswd.isEmpty()) {
+
+                    binding.editTextPsswd.error = "Campo obligatorio"
+
+                }
+
+                Toast.makeText(requireContext(), "Completa los campos obligatorios", Toast.LENGTH_SHORT).show()
+
+            } else {
+
+                var navController = findNavController(view)
+                navController.navigate(R.id.action_registroFragment_to_homeFragment)
+
+            }
+
+        }
 
         // Volver al Inicio de Sesion
         binding.camInicioSesion.setOnClickListener {
