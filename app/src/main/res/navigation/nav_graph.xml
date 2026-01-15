@@ -9,7 +9,11 @@
         android:id="@+id/registroFragment"
         android:name="com.example.vadabarder.RegistroFragment"
         android:label="fragment_registro"
-        tools:layout="@layout/fragment_registro" />
+        tools:layout="@layout/fragment_registro" >
+        <action
+            android:id="@+id/action_registroFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.vadabarder.LoginFragment"
