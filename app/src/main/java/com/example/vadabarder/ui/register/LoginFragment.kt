@@ -38,11 +38,14 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Pulsar boton de login
         binding.btnLogin.setOnClickListener {
 
+            // Obtengo los valores
             val user = binding.editTextNombre.text
             val psswd = binding.editTextPsswd.text
 
+            // Comprueba y mensaje de error
             if (psswd.isEmpty() || user.isEmpty()) {
 
                 if (user.isEmpty()) {
@@ -61,6 +64,7 @@ class LoginFragment : Fragment() {
 
             } else {
 
+                // Navega
                 var navController = findNavController(view)
                 navController.navigate(R.id.action_loginFragment_to_homeFragment)
 

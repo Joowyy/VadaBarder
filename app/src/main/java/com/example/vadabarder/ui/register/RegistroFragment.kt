@@ -38,12 +38,15 @@ class RegistroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Pulsar boton de login
         binding.btnRegistro.setOnClickListener {
 
+            // Obtenemos valores
             val user = binding.editTextNombre.text
             val correo = binding.editTextCorreo.text
             val psswd = binding.editTextPsswd.text
 
+            // Comprueba y mensaje de error
             if (psswd.isEmpty() || correo.isEmpty()) {
 
                 if (user.isEmpty()) {
@@ -68,6 +71,7 @@ class RegistroFragment : Fragment() {
 
             } else {
 
+                // Navega
                 var navController = findNavController(view)
                 navController.navigate(R.id.action_registroFragment_to_homeFragment)
 
