@@ -47,7 +47,7 @@ class RegistroFragment : Fragment() {
             val psswd = binding.editTextPsswd.text
 
             // Comprueba y mensaje de error
-            if (psswd.isEmpty() || correo.isEmpty()) {
+            if (psswd.isEmpty() || correo.isEmpty() || user.isEmpty()) {
 
                 if (user.isEmpty()) {
 
