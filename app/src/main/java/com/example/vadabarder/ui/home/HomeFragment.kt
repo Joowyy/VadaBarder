@@ -17,13 +17,25 @@ class HomeFragment : Fragment() {
     private var correo: String? = null
     private var psswd: String? = null
 
+    // Guardar las instancias cuando navegamos entre Fragments
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("user", user)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
-            user = it.getString("user")
+
+            // Guardamos su instancia y recogemos su valor de argumento
+            user = savedInstanceState?.getString("user")
+                ?: it.getString("user")
+
             correo = it.getString("correo")
             psswd = it.getString("psswd")
         }
+
     }
 
     override fun onCreateView(
@@ -39,9 +51,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Mirar bien lo del correo, ya que si inicia sesion,
-
-
+        // Mirar bien lo del correo, ya que si inicia sesion tendremos que recogerlo de la ROOM (La BDD)
         binding.bienvenida.text = "¡Bienvenido $user!"
 
     }
