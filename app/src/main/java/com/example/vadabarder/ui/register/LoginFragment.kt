@@ -41,7 +41,8 @@ class LoginFragment : Fragment() {
         // Pulsar boton de login
         binding.btnLogin.setOnClickListener {
 
-            // Obtengo los valores
+            // Obtengo los valores de usuario y psswd
+            val userS = binding.editTextNombre.text.toString()
             val user = binding.editTextNombre.text
             val psswd = binding.editTextPsswd.text
 
@@ -64,9 +65,17 @@ class LoginFragment : Fragment() {
 
             } else {
 
+                // Y los paso de argumentos
+                var args = Bundle().apply {
+
+                    putString("user", userS)
+                    //putString("password", psswd)
+
+                }
+
                 // Navega
                 var navController = findNavController(view)
-                navController.navigate(R.id.action_loginFragment_to_homeFragment)
+                navController.navigate(R.id.action_loginFragment_to_homeFragment, args)
 
             }
 

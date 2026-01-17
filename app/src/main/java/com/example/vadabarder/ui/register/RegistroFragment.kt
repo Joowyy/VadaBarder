@@ -46,6 +46,8 @@ class RegistroFragment : Fragment() {
             val correo = binding.editTextCorreo.text
             val psswd = binding.editTextPsswd.text
 
+            val userS = binding.editTextNombre.text.toString()
+
             // Comprueba y mensaje de error
             if (psswd.isEmpty() || correo.isEmpty() || user.isEmpty()) {
 
@@ -71,9 +73,18 @@ class RegistroFragment : Fragment() {
 
             } else {
 
+                // Y los paso de argumentos
+                var args = Bundle().apply {
+
+                    putString("user", userS)
+//                  putString("password", psswd)
+//                  putString("correo", correo)
+
+                }
+
                 // Navega
                 var navController = findNavController(view)
-                navController.navigate(R.id.action_registroFragment_to_homeFragment)
+                navController.navigate(R.id.action_registroFragment_to_homeFragment, args)
 
             }
 
