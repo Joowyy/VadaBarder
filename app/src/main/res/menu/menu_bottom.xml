@@ -7,7 +7,7 @@
         android:title="Inicio" />
 
     <item
-        android:id="@+id/favoritesFragment"
+        android:id="@+id/addFragment"
         android:icon="@drawable/add"
         android:title="Nueva cita" />
 
