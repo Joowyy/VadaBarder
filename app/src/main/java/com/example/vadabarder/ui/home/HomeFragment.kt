@@ -1,6 +1,5 @@
 package com.example.vadabarder.ui.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentHomeBinding
+import android.widget.TextView
+import android.widget.TableLayout
+import com.google.android.material.card.MaterialCardView
 
 class HomeFragment : Fragment() {
 
@@ -53,6 +55,19 @@ class HomeFragment : Fragment() {
 
         // Mirar bien lo del correo, ya que si inicia sesion tendremos que recogerlo de la ROOM (La BDD)
         binding.bienvenida.text = "¡Bienvenido $user!"
+
+        val verHorario = view.findViewById<TextView>(R.id.verHorario)
+        val tablaHorario = view.findViewById<MaterialCardView>(R.id.cardHorario)
+
+        verHorario.setOnClickListener {
+            if (tablaHorario.visibility == View.GONE) {
+                tablaHorario.visibility = View.VISIBLE
+                verHorario.text = "OCULTAR HORARIO"
+            } else {
+                tablaHorario.visibility = View.GONE
+                verHorario.text = "VER HORARIO"
+            }
+        }
 
     }
 

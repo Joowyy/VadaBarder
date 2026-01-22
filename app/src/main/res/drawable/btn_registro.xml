@@ -2,14 +2,14 @@
     <item android:state_pressed="true">
         <shape>
             <solid android:color="#1A2196F3"/>
-            <stroke android:width="2dp" android:color="#212020"/>
+            <stroke android:width="2dp" android:color="@color/black"/>
             <corners android:radius="18dp"/>
         </shape>
     </item>
     <item>
         <shape>
             <solid android:color="@android:color/transparent"/>
-            <stroke android:width="2dp" android:color="#212020"/>
+            <stroke android:width="2dp" android:color="@color/black"/>
             <corners android:radius="18dp"/>
         </shape>
     </item>
