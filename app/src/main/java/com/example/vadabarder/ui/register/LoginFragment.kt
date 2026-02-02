@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentLoginBinding
+import com.example.vadabarder.viewmodel.UserViewModel
 
 class LoginFragment : Fragment() {
 
     private var _binding : FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel : UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +45,7 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
 
             // Obtengo los valores de usuario y psswd
-            val userS = binding.editTextNombre.text.toString()
-            val user = binding.editTextNombre.text
+            val user = binding.editTextNombre.text.toString()
             val psswd = binding.editTextPsswd.text
 
             // Comprueba y mensaje de error
@@ -65,17 +67,11 @@ class LoginFragment : Fragment() {
 
             } else {
 
-                // Y los paso de argumentos
-                var args = Bundle().apply {
-
-                    putString("user", userS)
-                    //putString("password", psswd)
-
-                }
+                userViewModel.user = user
 
                 // Navega
                 var navController = findNavController(view)
-                navController.navigate(R.id.action_loginFragment_to_homeFragment, args)
+                navController.navigate(R.id.action_loginFragment_to_homeFragment)
 
             }
 
@@ -92,8 +88,8 @@ class LoginFragment : Fragment() {
     }
 
     // Memory Leaks
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

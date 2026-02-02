@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
+import androidx.fragment.app.activityViewModels
 import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentRegistroBinding
+import com.example.vadabarder.viewmodel.UserViewModel
 
 class RegistroFragment : Fragment() {
 
     private var _binding : FragmentRegistroBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel : UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +45,9 @@ class RegistroFragment : Fragment() {
         binding.btnRegistro.setOnClickListener {
 
             // Obtenemos valores
-            val user = binding.editTextNombre.text
-            val correo = binding.editTextCorreo.text
-            val psswd = binding.editTextPsswd.text
-
-            val userS = binding.editTextNombre.text.toString()
+            val user = binding.editTextNombre.text.toString()
+            val correo = binding.editTextCorreo.text.toString()
+            val psswd = binding.editTextPsswd.text.toString()
 
             // Comprueba y mensaje de error
             if (psswd.isEmpty() || correo.isEmpty() || user.isEmpty()) {
@@ -73,18 +74,12 @@ class RegistroFragment : Fragment() {
 
             } else {
 
-                // Y los paso de argumentos
-                var args = Bundle().apply {
-
-                    putString("user", userS)
-//                  putString("password", psswd)
-//                  putString("correo", correo)
-
-                }
+                userViewModel.user = user
+                userViewModel.correo = correo
 
                 // Navega
                 var navController = findNavController(view)
-                navController.navigate(R.id.action_registroFragment_to_homeFragment, args)
+                navController.navigate(R.id.action_registroFragment_to_homeFragment)
 
             }
 
@@ -101,8 +96,8 @@ class RegistroFragment : Fragment() {
     }
 
     // Memory Leaks
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

@@ -9,6 +9,8 @@ import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentHomeBinding
 import android.widget.TextView
 import android.widget.TableLayout
+import androidx.fragment.app.activityViewModels
+import com.example.vadabarder.viewmodel.UserViewModel
 import com.google.android.material.card.MaterialCardView
 
 class HomeFragment : Fragment() {
@@ -18,6 +20,8 @@ class HomeFragment : Fragment() {
     private var user: String? = null
     private var correo: String? = null
     private var psswd: String? = null
+
+    private val userViewModel : UserViewModel by activityViewModels()
 
     // Guardar las instancias cuando navegamos entre Fragments
     override fun onSaveInstanceState(outState: Bundle) {
@@ -30,12 +34,6 @@ class HomeFragment : Fragment() {
 
         arguments?.let {
 
-            // Guardamos su instancia y recogemos su valor de argumento
-            user = savedInstanceState?.getString("user")
-                ?: it.getString("user")
-
-            correo = it.getString("correo")
-            psswd = it.getString("psswd")
         }
 
     }
@@ -54,11 +52,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Mirar bien lo del correo, ya que si inicia sesion tendremos que recogerlo de la ROOM (La BDD)
-        binding.bienvenida.text = "¡Bienvenido $user!"
+        binding.bienvenida.text = "¡Bienvenido ${userViewModel.user}!"
 
         val verHorario = view.findViewById<TextView>(R.id.verHorario)
         val tablaHorario = view.findViewById<MaterialCardView>(R.id.cardHorario)
 
+        // Desplegable del horario
         verHorario.setOnClickListener {
             if (tablaHorario.visibility == View.GONE) {
                 tablaHorario.visibility = View.VISIBLE
@@ -72,8 +71,8 @@ class HomeFragment : Fragment() {
     }
 
     // Memory Leaks
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
