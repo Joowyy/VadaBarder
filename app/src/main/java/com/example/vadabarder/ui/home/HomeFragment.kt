@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentHomeBinding
 import android.widget.TextView
-import android.widget.TableLayout
 import androidx.fragment.app.activityViewModels
 import com.example.vadabarder.viewmodel.UserViewModel
 import com.google.android.material.card.MaterialCardView

@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.vadabarder.R
+import com.example.vadabarder.viewmodel.UserViewModel
 import com.example.vadabarder.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,17 @@ class ProfileFragment : Fragment() {
 
         _binding = FragmentProfileBinding.inflate(layoutInflater)
         return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var nombre = userViewModel.user.toString()
+        var correo = userViewModel.correo.toString()
+
+        binding.tvNombre.text = nombre
+        binding.tvCorreo.text = correo
 
     }
 
