@@ -62,6 +62,21 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.btnLlamar.setOnClickListener {
+            val phoneNumber = "+34123456789"
+            val intent = android.content.Intent(android.content.Intent.ACTION_DIAL)
+            intent.data = android.net.Uri.parse("tel:$phoneNumber")
+            startActivity(intent)
+        }
+
+        binding.btnMapa.setOnClickListener {
+            // Coordenadas de la barbería o dirección en texto
+            val geoUri = "geo:0,0?q=Calle+Ejemplo+123,+Ciudad,+España"
+            val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(geoUri))
+            intent.setPackage("com.google.android.apps.maps")
+            startActivity(intent)
+        }
+
     }
 
     // Memory Leaks

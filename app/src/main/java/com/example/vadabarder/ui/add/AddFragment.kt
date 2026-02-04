@@ -44,7 +44,7 @@ class AddFragment : Fragment() {
         )
 
         val serviciosDisponibles = listOf(
-            "Corte clásico", "Fade", "Barba", "Corts + Barba"
+            "Corte clásico", "Fade", "Barba", "Corte + Barba"
         )
 
         cargarServicios(serviciosDisponibles)
