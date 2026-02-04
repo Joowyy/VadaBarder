@@ -16,16 +16,11 @@ class HomeFragment : Fragment() {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var user: String? = null
-    private var correo: String? = null
-    private var psswd: String? = null
-
     private val userViewModel : UserViewModel by activityViewModels()
 
     // Guardar las instancias cuando navegamos entre Fragments
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("user", user)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

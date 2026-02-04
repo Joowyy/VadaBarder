@@ -21,7 +21,6 @@
             android:textAllCaps="true"
             android:textSize="62sp"
             android:textStyle="bold"
-            android:textColor="#222"
 
             android:shadowColor="#80000000"
             android:shadowRadius="6"
