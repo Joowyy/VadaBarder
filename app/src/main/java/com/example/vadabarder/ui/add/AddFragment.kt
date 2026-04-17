@@ -1,21 +1,31 @@
 package com.example.vadabarder.ui.add
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.vadabarder.R
+import com.example.vadabarder.data.model.Cita
 import com.example.vadabarder.databinding.FragmentAddBinding
-import com.example.vadabarder.databinding.FragmentProfileBinding
+import com.example.vadabarder.viewmodel.UserViewModel
 import com.google.android.material.chip.Chip
-
-
 
 class AddFragment : Fragment() {
 
     private var _binding : FragmentAddBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel: UserViewModel by activityViewModels()
+
+    private var fechaSeleccionada: String? = null
+
+    private val preciosPorServicio = mapOf(
+        "Corte clásico" to "12€",
+        "Fade"          to "8€",
+        "Barba"         to "8€",
+        "Corte + Barba" to "18€"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,17 +57,53 @@ class AddFragment : Fragment() {
             "Corte clásico", "Fade", "Barba", "Corte + Barba"
         )
 
+        cargarHoras(horasDisponibles)
         cargarServicios(serviciosDisponibles)
 
-        binding.calendarView.setOnDateChangeListener { _, _, _, _ ->
-            cargarHoras(horasDisponibles)
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            fechaSeleccionada = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
+        }
+
+        binding.btnAgregarCita.setOnClickListener {
+            val fecha    = fechaSeleccionada
+            val horaChip = binding.chipGroupHoras.checkedChipId
+            val servChip = binding.chipGroupServicios.checkedChipId
+
+            if (fecha == null) {
+                Toast.makeText(requireContext(), "Selecciona una fecha", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (horaChip == View.NO_ID) {
+                Toast.makeText(requireContext(), "Selecciona una hora", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (servChip == View.NO_ID) {
+                Toast.makeText(requireContext(), "Selecciona un servicio", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val hora     = binding.chipGroupHoras.findViewById<Chip>(horaChip).text.toString()
+            val servicio = binding.chipGroupServicios.findViewById<Chip>(servChip).text.toString()
+            val precio   = preciosPorServicio[servicio] ?: "-"
+
+            userViewModel.agregarCita(Cita(fecha, hora, servicio, precio))
+            Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
+            resetFormulario()
         }
 
     }
 
+    private fun resetFormulario() {
+        fechaSeleccionada = null
+        binding.calendarView.date = System.currentTimeMillis()
+        binding.chipGroupHoras.clearCheck()
+        binding.chipGroupServicios.clearCheck()
+        binding.cardHoras.visibility = View.GONE
+    }
+
     private fun cargarHoras(horas: List<String>) {
         binding.chipGroupHoras.removeAllViews()
-        binding.chipGroupHoras.visibility = View.VISIBLE
+        binding.cardHoras.visibility = View.VISIBLE
 
         horas.forEach { hora ->
             val chip = Chip(requireContext()).apply {
@@ -78,7 +124,6 @@ class AddFragment : Fragment() {
 
     private fun cargarServicios(servicios: List<String>) {
         binding.chipGroupServicios.removeAllViews()
-        binding.chipGroupServicios.visibility = View.VISIBLE
 
         servicios.forEach { servicio ->
             val chip = Chip(requireContext()).apply {
