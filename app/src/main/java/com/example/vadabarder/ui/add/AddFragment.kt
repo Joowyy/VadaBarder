@@ -57,11 +57,11 @@ class AddFragment : Fragment() {
             "Corte clásico", "Fade", "Barba", "Corte + Barba"
         )
 
+        cargarHoras(horasDisponibles)
         cargarServicios(serviciosDisponibles)
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             fechaSeleccionada = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
-            cargarHoras(horasDisponibles)
         }
 
         binding.btnAgregarCita.setOnClickListener {
@@ -88,13 +88,22 @@ class AddFragment : Fragment() {
 
             userViewModel.agregarCita(Cita(fecha, hora, servicio, precio))
             Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
+            resetFormulario()
         }
 
     }
 
+    private fun resetFormulario() {
+        fechaSeleccionada = null
+        binding.calendarView.date = System.currentTimeMillis()
+        binding.chipGroupHoras.clearCheck()
+        binding.chipGroupServicios.clearCheck()
+        binding.cardHoras.visibility = View.GONE
+    }
+
     private fun cargarHoras(horas: List<String>) {
         binding.chipGroupHoras.removeAllViews()
-        binding.chipGroupHoras.visibility = View.VISIBLE
+        binding.cardHoras.visibility = View.VISIBLE
 
         horas.forEach { hora ->
             val chip = Chip(requireContext()).apply {
@@ -115,7 +124,6 @@ class AddFragment : Fragment() {
 
     private fun cargarServicios(servicios: List<String>) {
         binding.chipGroupServicios.removeAllViews()
-        binding.chipGroupServicios.visibility = View.VISIBLE
 
         servicios.forEach { servicio ->
             val chip = Chip(requireContext()).apply {
