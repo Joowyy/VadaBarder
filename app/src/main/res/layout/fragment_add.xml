@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Nombre app -->
+        <!-- VADABARBER -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -32,30 +32,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tituloCita"
+        <!-- PEDIR CITA header + acento -->
+        <LinearLayout
+            android:id="@+id/headerPedirCita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pedir cita"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="4dp"
             app:layout_constraintTop_toBottomOf="@id/textView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tituloCita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PEDIR CITA"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"/>
+
+            <View
+                android:layout_width="48dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
 
         <!-- CALENDARIO -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="14dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloCita">
+            app:layout_constraintTop_toBottomOf="@id/headerPedirCita">
 
             <CalendarView
                 android:id="@+id/calendarView"
@@ -85,10 +104,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Horas disponibles"
-                    android:textSize="16sp"
+                    android:text="HORAS DISPONIBLES"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:letterSpacing="0.08"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/text_primary_light"
                     android:layout_marginBottom="10dp"/>
 
                 <com.google.android.material.chip.ChipGroup
@@ -123,10 +145,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Servicio"
-                    android:textSize="16sp"
+                    android:text="SERVICIO"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:letterSpacing="0.08"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/text_primary_light"
                     android:layout_marginBottom="10dp"/>
 
                 <com.google.android.material.chip.ChipGroup
@@ -140,19 +165,16 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- BOTÓN CONFIRMAR -->
+        <!-- AGREGAR CITA -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAgregarCita"
+            style="@style/VadaBarber.Button.CTA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginHorizontal="8dp"
             android:text="Agregar cita"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:padding="14dp"
-            app:cornerRadius="12dp"
             app:layout_constraintTop_toBottomOf="@id/cardServicios"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

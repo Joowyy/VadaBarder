@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Imágenes galería -->
     <style name="gallery_img">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- CTA principal — fondo deep purple, texto blanco -->
+    <style name="VadaBarber.Button.CTA" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="backgroundTint">@color/deep_purple_500</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="rippleColor">@color/purple_300</item>
+    </style>
+
+    <!-- CTA destructivo — mismo shape, fondo rojo -->
+    <style name="VadaBarber.Button.CTA.Danger">
+        <item name="backgroundTint">@color/red_700</item>
+        <item name="rippleColor">@color/red_300</item>
     </style>
 
 </resources>

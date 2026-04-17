@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.vadabarder.R
 import com.example.vadabarder.databinding.FragmentHomeBinding
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.example.vadabarder.viewmodel.UserViewModel
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
 class HomeFragment : Fragment() {
@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         // Mirar bien lo del correo, ya que si inicia sesion tendremos que recogerlo de la ROOM (La BDD)
         binding.bienvenida.text = "¡Bienvenido ${userViewModel.user}!"
 
-        val verHorario = view.findViewById<TextView>(R.id.verHorario)
+        val verHorario = view.findViewById<MaterialButton>(R.id.verHorario)
         val tablaHorario = view.findViewById<MaterialCardView>(R.id.cardHorario)
 
         // Desplegable del horario
