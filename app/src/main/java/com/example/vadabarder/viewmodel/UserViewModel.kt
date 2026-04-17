@@ -15,6 +15,7 @@ class UserViewModel : ViewModel(){
         user = ""
         correo = ""
         psswd = ""
+        historialCitas.value = emptyList()
     }
 
     fun agregarCita(cita: Cita) {

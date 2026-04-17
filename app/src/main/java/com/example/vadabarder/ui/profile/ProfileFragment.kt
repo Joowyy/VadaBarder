@@ -57,10 +57,6 @@ class ProfileFragment : Fragment() {
             adapter.actualizarCitas(citas)
         }
 
-        // Ejemplo de agregar citas (puedes reemplazar con tu lógica real)
-        userViewModel.agregarCita(Cita("04/02/2026", "16:00", "Corte clásico", "12€"))
-        userViewModel.agregarCita(Cita("02/02/2026", "11:30", "Barba", "8€"))
-
         binding.cerrarSesion.setOnClickListener {
             // Crear un diálogo de confirmación
             val alertDialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
