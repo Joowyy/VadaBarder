@@ -57,11 +57,11 @@ class AddFragment : Fragment() {
             "Corte clásico", "Fade", "Barba", "Corte + Barba"
         )
 
-        cargarHoras(horasDisponibles)
         cargarServicios(serviciosDisponibles)
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             fechaSeleccionada = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
+            cargarHoras(horasDisponibles)
         }
 
         binding.btnAgregarCita.setOnClickListener {

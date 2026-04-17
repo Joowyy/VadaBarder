@@ -13,71 +13,80 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="80dp"
-        android:background="@color/gray_light"
-        tools:context=".ui.home.HomeFragment">
+        android:background="@color/gray_light">
 
-        <!-- TITULO -->
+        <!-- VADABARBER -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="28dp"
             android:fontFamily="@font/roboto"
             android:text="@string/NombreApp"
             android:textAllCaps="true"
             android:textSize="62sp"
             android:textStyle="bold"
-
             android:shadowColor="#80000000"
             android:shadowRadius="6"
             android:shadowDx="3"
             android:shadowDy="3"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/bienvenida"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:textAllCaps="true"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-
-            app:layout_constraintTop_toBottomOf="@id/textView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- BOTÓN / TEXTO VER HORARIO -->
-        <TextView
-            android:id="@+id/verHorario"
+        <!-- BIENVENIDA + acento -->
+        <LinearLayout
+            android:id="@+id/headerBienvenida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VER HORARIO"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="24dp"
-            android:background="@drawable/ver_horario_draw"
-            android:clickable="true"
-            android:focusable="true"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/bienvenida"
+            <TextView
+                android:id="@+id/bienvenida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"
+                tools:text="¡BIENVENIDO JOEL!" />
+
+            <View
+                android:layout_width="56dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <!-- VER HORARIO -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verHorario"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="VER HORARIO"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@id/headerBienvenida"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Tabla horario (toggle) -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardHorario"
-            android:layout_width="250dp"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
+            android:layout_marginTop="10dp"
             android:visibility="gone"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
             app:layout_constraintTop_toBottomOf="@id/verHorario"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -87,71 +96,51 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_gravity="center"
                 android:padding="20dp">
 
                 <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:text="HORARIO"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:letterSpacing="0.1"
                     android:gravity="center"
-                    android:layout_marginBottom="12dp"/>
+                    android:textColor="@color/text_primary_light"
+                    android:layout_marginBottom="14dp"/>
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Lunes - Viernes"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Lunes — Viernes" android:textStyle="bold" android:textAllCaps="true"
+                    android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="09:00 - 14:00  ·  16:00 - 20:00" android:gravity="center"
+                    android:textColor="@color/text_secondary_light" android:layout_marginBottom="12dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="09:00 - 14:00\n16:00 - 20:00"
-                    android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Sábado" android:textStyle="bold" android:textAllCaps="true"
+                    android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="09:00 - 14:00" android:gravity="center"
+                    android:textColor="@color/text_secondary_light" android:layout_marginBottom="12dp"/>
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Sábado"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="09:00 - 14:00"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:text="Domingo"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cerrado"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Domingo" android:textStyle="bold" android:textAllCaps="true"
+                    android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Cerrado" android:textColor="@color/red_500" android:gravity="center"/>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- SERVICIOS DESTACADOS -->
+        <!-- NUESTROS CORTES -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardServicios"
+            android:id="@+id/cardGaleria"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
             app:layout_constraintTop_toBottomOf="@id/cardHorario"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -166,63 +155,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SERVICIOS POPULARES"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Corte clásico · 12€"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Barba · 8€"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Corte + Barba · 18€"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardGaleria"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:layout_constraintTop_toBottomOf="@id/cardServicios"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="NUESTROS CORTES"
-                    android:textAlignment="center"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
+                    android:letterSpacing="0.12"
+                    android:fontFamily="@font/grotesk"
+                    android:gravity="center"
+                    android:textColor="@color/text_primary_light"
                     android:layout_marginBottom="16dp"/>
 
                 <LinearLayout
@@ -232,47 +172,44 @@
                     android:gravity="center">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
+                        android:layout_marginEnd="8dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/corte1"
                         app:shapeAppearanceOverlay="@style/gallery_img"
                         app:strokeWidth="0dp"/>
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/corte2"
                         app:shapeAppearanceOverlay="@style/gallery_img"
                         app:strokeWidth="0dp"/>
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_width="95dp"
+                        android:layout_height="95dp"
+                        android:layout_marginStart="8dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/corte3"
                         app:shapeAppearanceOverlay="@style/gallery_img"
                         app:strokeWidth="0dp"/>
-
                 </LinearLayout>
-
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- CONTACTO -->
+        <!-- SERVICIOS POPULARES (movido debajo de galería) -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardContacto"
+            android:id="@+id/cardServicios"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/purple_100"
             app:layout_constraintTop_toBottomOf="@id/cardGaleria"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -281,40 +218,137 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
                 android:padding="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CONTACTO"
+                    android:text="SERVICIOS POPULARES"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="12dp"/>
+                    android:textSize="17sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="@font/grotesk"
+                    android:gravity="center"
+                    android:textColor="@color/deep_purple_500"
+                    android:layout_marginBottom="14dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnLlamar"
-                    android:text="Llamar"
-                    android:textStyle="bold"
-                    android:padding="12dp"
-                    android:background="@drawable/ver_horario_draw"
-                    android:layout_marginBottom="8dp"/>
+                <!-- Servicio 1 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Corte clásico"
+                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="12€" android:textStyle="bold" android:textSize="15sp"
+                        android:textColor="@color/deep_purple_500"/>
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnMapa"
-                    android:text="Cómo llegar"
-                    android:textStyle="bold"
-                    android:padding="12dp"
-                    android:background="@drawable/ver_horario_draw"/>
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/purple_300" android:alpha="0.4"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Servicio 2 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Barba"
+                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="8€" android:textStyle="bold" android:textSize="15sp"
+                        android:textColor="@color/deep_purple_500"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/purple_300" android:alpha="0.4"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Servicio 3 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Fade"
+                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="8€" android:textStyle="bold" android:textSize="15sp"
+                        android:textColor="@color/deep_purple_500"/>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/purple_300" android:alpha="0.4"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Servicio 4 -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:text="Corte + Barba"
+                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="18€" android:textStyle="bold" android:textSize="15sp"
+                        android:textColor="@color/deep_purple_500"/>
+                </LinearLayout>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- CONTACTO header + acento -->
+        <LinearLayout
+            android:id="@+id/headerContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@id/cardServicios"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CONTACTO"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <!-- Llamar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLlamar"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Llamar"
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="40dp"
+            app:layout_constraintTop_toBottomOf="@id/headerContacto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Cómo llegar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMapa"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Cómo llegar"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLlamar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
