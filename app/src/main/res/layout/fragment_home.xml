@@ -71,15 +71,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Tabla horario (toggle) -->
+        <!-- ═══ CARD HORARIO (redesign) ════════════════════════════════ -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardHorario"
-            android:layout_width="260dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
             android:visibility="gone"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_subtle"
             app:layout_constraintTop_toBottomOf="@id/verHorario"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -87,53 +89,139 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp">
+                android:orientation="vertical">
 
-                <TextView
+                <!-- Cabecera coloreada -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="HORARIO"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:letterSpacing="0.1"
-                    android:gravity="center"
-                    android:textColor="@color/text_primary_light"
-                    android:layout_marginBottom="14dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/deep_purple_500"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="12dp">
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Lunes — Viernes" android:textStyle="bold" android:textAllCaps="true"
-                    android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="4dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="09:00 - 14:00  ·  16:00 - 20:00" android:gravity="center"
-                    android:textColor="@color/text_secondary_light" android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="HORARIO"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="@font/grotesk"
+                        android:textColor="@color/white"/>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Sábado" android:textStyle="bold" android:textAllCaps="true"
-                    android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="4dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="09:00 - 14:00" android:gravity="center"
-                    android:textColor="@color/text_secondary_light" android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Abierto ahora"
+                        android:textSize="11sp"
+                        android:textColor="@color/green_300"
+                        android:textStyle="bold"/>
+                </LinearLayout>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Domingo" android:textStyle="bold" android:textAllCaps="true"
-                    android:textSize="12sp" android:letterSpacing="0.05" android:layout_marginBottom="4dp"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Cerrado" android:textColor="@color/red_500" android:gravity="center"/>
+                <!-- Filas de horario -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="14dp">
 
+                    <!-- Lun–Vie -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Lunes — Viernes"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="09:00–14:00  ·  16:00–20:00"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary_light"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider_light" android:layout_marginBottom="10dp"/>
+
+                    <!-- Sábado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Sábado"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="09:00–14:00"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary_light"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider_light" android:layout_marginBottom="10dp"/>
+
+                    <!-- Domingo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Domingo"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CERRADO"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.05"
+                            android:textColor="@color/red_500"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- NUESTROS CORTES -->
+        <!-- ═══ NOVEDADES ═══════════════════════════════════════════════ -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardGaleria"
+            android:id="@+id/cardNovedades"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/purple_50"
             app:layout_constraintTop_toBottomOf="@id/cardHorario"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -142,8 +230,144 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp">
+                android:padding="18dp">
+
+                <!-- Título -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NOVEDADES"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/deep_purple_500"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Noticia 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="14dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/deep_purple_500"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="2dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nueva colección primavera 2026"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"
+                            android:layout_marginBottom="3dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Descubre los cortes más tendencia de la temporada, ya disponibles en el local."
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary_light"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15 Abr 2026"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/deep_purple_500"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/purple_300" android:alpha="0.5"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Noticia 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/deep_purple_500"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="2dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ampliamos horario en mayo"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"
+                            android:layout_marginBottom="3dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="A partir del 1 de mayo abriremos también los domingos de 10:00 a 14:00."
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary_light"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="01 May 2026"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/deep_purple_500"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ═══ NUESTROS CORTES (carousel) ═════════════════════════════ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardGaleria"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_subtle"
+            app:layout_constraintTop_toBottomOf="@id/cardNovedades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -156,44 +380,82 @@
                     android:fontFamily="@font/grotesk"
                     android:gravity="center"
                     android:textColor="@color/text_primary_light"
-                    android:layout_marginBottom="16dp"/>
+                    android:paddingHorizontal="18dp"
+                    android:layout_marginBottom="14dp"/>
 
-                <LinearLayout
+                <!-- Carousel horizontal -->
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:scrollbars="none"
+                    android:paddingHorizontal="12dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="95dp"
-                        android:layout_height="95dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/corte1"
-                        app:shapeAppearanceOverlay="@style/gallery_img"
-                        app:strokeWidth="0dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="95dp"
-                        android:layout_height="95dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/corte2"
-                        app:shapeAppearanceOverlay="@style/gallery_img"
-                        app:strokeWidth="0dp"/>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="125dp"
+                            android:layout_height="168dp"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/corte1"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="95dp"
-                        android:layout_height="95dp"
-                        android:layout_marginStart="8dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/corte3"
-                        app:shapeAppearanceOverlay="@style/gallery_img"
-                        app:strokeWidth="0dp"/>
-                </LinearLayout>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="125dp"
+                            android:layout_height="168dp"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/corte2"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="125dp"
+                            android:layout_height="168dp"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/corte3"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="125dp"
+                            android:layout_height="168dp"
+                            android:layout_marginEnd="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/corte1"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="125dp"
+                            android:layout_height="168dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/corte2"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Desliza para ver más →"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary_light"
+                    android:gravity="end"
+                    android:paddingHorizontal="18dp"
+                    android:layout_marginTop="8dp"/>
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- SERVICIOS POPULARES (movido debajo de galería) -->
+        <!-- ═══ SERVICIOS POPULARES ══════════════════════════════════════ -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardServicios"
             android:layout_width="0dp"
@@ -202,7 +464,7 @@
             android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/purple_100"
+            app:cardBackgroundColor="@color/purple_50"
             app:layout_constraintTop_toBottomOf="@id/cardGaleria"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -226,7 +488,6 @@
                     android:textColor="@color/deep_purple_500"
                     android:layout_marginBottom="14dp"/>
 
-                <!-- Servicio 1 -->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="horizontal" android:layout_marginBottom="10dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -236,12 +497,9 @@
                         android:text="12€" android:textStyle="bold" android:textSize="15sp"
                         android:textColor="@color/deep_purple_500"/>
                 </LinearLayout>
-
                 <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/purple_300" android:alpha="0.4"
-                    android:layout_marginBottom="10dp"/>
+                    android:background="@color/purple_300" android:alpha="0.4" android:layout_marginBottom="10dp"/>
 
-                <!-- Servicio 2 -->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="horizontal" android:layout_marginBottom="10dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -251,12 +509,9 @@
                         android:text="8€" android:textStyle="bold" android:textSize="15sp"
                         android:textColor="@color/deep_purple_500"/>
                 </LinearLayout>
-
                 <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/purple_300" android:alpha="0.4"
-                    android:layout_marginBottom="10dp"/>
+                    android:background="@color/purple_300" android:alpha="0.4" android:layout_marginBottom="10dp"/>
 
-                <!-- Servicio 3 -->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="horizontal" android:layout_marginBottom="10dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -266,12 +521,9 @@
                         android:text="8€" android:textStyle="bold" android:textSize="15sp"
                         android:textColor="@color/deep_purple_500"/>
                 </LinearLayout>
-
                 <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/purple_300" android:alpha="0.4"
-                    android:layout_marginBottom="10dp"/>
+                    android:background="@color/purple_300" android:alpha="0.4" android:layout_marginBottom="10dp"/>
 
-                <!-- Servicio 4 -->
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -281,11 +533,10 @@
                         android:text="18€" android:textStyle="bold" android:textSize="15sp"
                         android:textColor="@color/deep_purple_500"/>
                 </LinearLayout>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- CONTACTO header + acento -->
+        <!-- ═══ CONTACTO ═════════════════════════════════════════════════ -->
         <LinearLayout
             android:id="@+id/headerContacto"
             android:layout_width="wrap_content"
@@ -316,7 +567,6 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
-        <!-- Llamar -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLlamar"
             style="@style/VadaBarber.Button.CTA"
@@ -329,7 +579,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Cómo llegar -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMapa"
             style="@style/VadaBarber.Button.CTA"
