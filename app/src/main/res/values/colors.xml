@@ -23,6 +23,7 @@
         <color name="pink_700">#C2185B</color>
 
         <!-- Morados -->
+        <color name="purple_50">#F3E5F5</color>
         <color name="purple_100">#E1BEE7</color>
         <color name="purple_300">#BA68C8</color>
         <color name="purple_500">#9C27B0</color>
@@ -81,6 +82,7 @@
 
         <color name="background_light">#F5F5F5</color>
         <color name="background_dark">#121212</color>
+        <color name="card_subtle">#F8F8F8</color>
 
         <color name="divider_light">#DDDDDD</color>
         <color name="divider_dark">#2C2C2C</color>

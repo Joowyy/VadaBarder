@@ -16,18 +16,11 @@
         <!-- VADABARBER -->
         <TextView
             android:id="@+id/textView"
+            style="@style/VadaBarber.AppTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
-            android:fontFamily="@font/roboto"
             android:text="@string/NombreApp"
-            android:textAllCaps="true"
-            android:textSize="62sp"
-            android:textStyle="bold"
-            android:shadowColor="#80000000"
-            android:shadowRadius="6"
-            android:shadowDx="3"
-            android:shadowDy="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
