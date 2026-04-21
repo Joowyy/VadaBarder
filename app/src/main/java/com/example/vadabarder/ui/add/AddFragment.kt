@@ -11,6 +11,9 @@ import com.example.vadabarder.data.model.Cita
 import com.example.vadabarder.databinding.FragmentAddBinding
 import com.example.vadabarder.viewmodel.UserViewModel
 import com.google.android.material.chip.Chip
+import androidx.core.content.ContextCompat
+import com.example.vadabarder.R
+import com.example.vadabarder.data.BarberiaData
 import java.util.Calendar
 
 class AddFragment : Fragment() {
@@ -21,51 +24,26 @@ class AddFragment : Fragment() {
 
     private var fechaSeleccionada: String? = null
 
-    // Slots de hora sincronizados con el horario del local (Home)
-    private val horasMañana = listOf(
-        "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-        "12:00", "12:30", "13:00", "13:30"
-    )
-    private val horasTarde = listOf(
-        "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
-        "19:00", "19:30"
-    )
-
-    private val preciosPorServicio = mapOf(
-        "Corte clásico" to "12€",
-        "Fade"          to "8€",
-        "Barba"         to "8€",
-        "Corte + Barba" to "18€"
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let { }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentAddBinding.inflate(layoutInflater)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val serviciosDisponibles = listOf(
-            "Corte clásico", "Fade", "Barba", "Corte + Barba"
-        )
-
         // Deshabilitar fechas pasadas en el calendario
         binding.calendarView.minDate = System.currentTimeMillis()
 
-        cargarServicios(serviciosDisponibles)
+        cargarServicios(BarberiaData.servicios.keys.toList())
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             fechaSeleccionada = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
@@ -73,10 +51,20 @@ class AddFragment : Fragment() {
             cargarHoras(cal.get(Calendar.DAY_OF_WEEK))
         }
 
+        binding.tvToggleDesglose.setOnClickListener {
+            if (binding.layoutDesglose.visibility == View.GONE) {
+                binding.layoutDesglose.visibility = View.VISIBLE
+                binding.tvToggleDesglose.text = "Ocultar ▴"
+            } else {
+                binding.layoutDesglose.visibility = View.GONE
+                binding.tvToggleDesglose.text = "Ver desglose ▾"
+            }
+        }
+
         binding.btnAgregarCita.setOnClickListener {
-            val fecha    = fechaSeleccionada
-            val horaChip = binding.chipGroupHoras.checkedChipId
-            val servChip = binding.chipGroupServicios.checkedChipId
+            val fecha         = fechaSeleccionada
+            val horaChip      = binding.chipGroupHoras.checkedChipId
+            val serviciosIds  = binding.chipGroupServicios.checkedChipIds
 
             if (fecha == null) {
                 Toast.makeText(requireContext(), "Selecciona una fecha", Toast.LENGTH_SHORT).show()
@@ -86,43 +74,53 @@ class AddFragment : Fragment() {
                 Toast.makeText(requireContext(), "Selecciona una hora", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (servChip == View.NO_ID) {
-                Toast.makeText(requireContext(), "Selecciona un servicio", Toast.LENGTH_SHORT).show()
+            if (serviciosIds.isEmpty()) {
+                Toast.makeText(requireContext(), "Selecciona al menos un servicio", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val hora     = binding.chipGroupHoras.findViewById<Chip>(horaChip).text.toString()
-            val servicio = binding.chipGroupServicios.findViewById<Chip>(servChip).text.toString()
-            val precio   = preciosPorServicio[servicio] ?: "-"
+            val hora      = binding.chipGroupHoras.findViewById<Chip>(horaChip).text.toString()
+            val servicios = serviciosIds.map { id ->
+                binding.chipGroupServicios.findViewById<Chip>(id).text.toString()
+            }
+            val servicio  = servicios.joinToString(" + ")
+            val precio    = "${servicios.sumOf { BarberiaData.servicios[it] ?: 0 }}€"
 
             userViewModel.agregarCita(Cita(fecha, hora, servicio, precio))
             Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
             resetFormulario()
         }
-
     }
 
     private fun resetFormulario() {
         fechaSeleccionada = null
         binding.calendarView.date = System.currentTimeMillis()
         binding.chipGroupHoras.clearCheck()
-        binding.chipGroupServicios.clearCheck()
+        for (i in 0 until binding.chipGroupServicios.childCount) {
+            (binding.chipGroupServicios.getChildAt(i) as? Chip)?.apply {
+                isChecked = false
+                isEnabled = true
+            }
+        }
         binding.cardHoras.visibility = View.GONE
+        binding.cardResumen.visibility = View.GONE
+        binding.layoutDesglose.visibility = View.GONE
+        binding.tvToggleDesglose.text = "Ver desglose ▾"
     }
 
     private fun cargarHoras(diaSemana: Int) {
         binding.chipGroupHoras.removeAllViews()
 
-        // Domingo — cerrado
         if (diaSemana == Calendar.SUNDAY) {
             binding.cardHoras.visibility = View.GONE
             Toast.makeText(requireContext(), "La barbería está cerrada los domingos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Sábado solo mañana; Lun–Vie mañana + tarde
-        val horasBase = if (diaSemana == Calendar.SATURDAY) horasMañana
-                        else horasMañana + horasTarde
+        val horasBase = BarberiaData.horasPorDia(diaSemana) ?: run {
+            Toast.makeText(requireContext(), "La barbería está cerrada los domingos", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val horasFiltradas = filtrarHorasPasadas(horasBase)
 
@@ -149,16 +147,14 @@ class AddFragment : Fragment() {
 
     // Filtra las horas que ya han pasado si el día seleccionado es hoy
     private fun filtrarHorasPasadas(horas: List<String>): List<String> {
-        val ahora = Calendar.getInstance()
+        val ahora  = Calendar.getInstance()
         val partes = fechaSeleccionada!!.split("/")
 
         val esHoy = partes[0].toInt() == ahora.get(Calendar.DAY_OF_MONTH) &&
                     partes[1].toInt() - 1 == ahora.get(Calendar.MONTH) &&
                     partes[2].toInt() == ahora.get(Calendar.YEAR)
 
-        if (!esHoy) {
-            return horas
-        }
+        if (!esHoy) return horas
 
         val horaActual   = ahora.get(Calendar.HOUR_OF_DAY)
         val minutoActual = ahora.get(Calendar.MINUTE)
@@ -177,15 +173,69 @@ class AddFragment : Fragment() {
                 text = servicio
                 isCheckable = true
                 isClickable = true
-
                 layoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    setMargins(8, 8, 8, 8)
+                ).apply { setMargins(8, 8, 8, 8) }
+
+                // Control de máximo 2 servicios + actualizar resumen
+                setOnCheckedChangeListener { _, _ ->
+                    val seleccionados = binding.chipGroupServicios.checkedChipIds.size
+                    for (i in 0 until binding.chipGroupServicios.childCount) {
+                        val c = binding.chipGroupServicios.getChildAt(i) as? Chip
+                        if (c != null && !c.isChecked) c.isEnabled = seleccionados < 2
+                    }
+                    actualizarResumen()
                 }
             }
             binding.chipGroupServicios.addView(chip)
+        }
+    }
+
+    private fun actualizarResumen() {
+        val ids = binding.chipGroupServicios.checkedChipIds
+        if (ids.isEmpty()) {
+            binding.cardResumen.visibility = View.GONE
+            return
+        }
+
+        val servicios = ids.map { id ->
+            binding.chipGroupServicios.findViewById<Chip>(id).text.toString()
+        }
+        val total = servicios.sumOf { BarberiaData.servicios[it] ?: 0 }
+
+        binding.cardResumen.visibility = View.VISIBLE
+        binding.tvPrecioTotal.text = "${total}€"
+
+        // Actualizar filas del desglose
+        binding.contenedorDesglose.removeAllViews()
+        servicios.forEach { servicio ->
+            val precio = BarberiaData.servicios[servicio] ?: 0
+            val fila = android.widget.LinearLayout(requireContext()).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                setPadding(0, 4, 0, 4)
+            }
+            val tvNombre = android.widget.TextView(requireContext()).apply {
+                text = servicio
+                textSize = 13f
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary_light))
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f
+                )
+            }
+            val tvPrecio = android.widget.TextView(requireContext()).apply {
+                text = "${precio}€"
+                textSize = 13f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.deep_purple_500))
+            }
+            fila.addView(tvNombre)
+            fila.addView(tvPrecio)
+            binding.contenedorDesglose.addView(fila)
         }
     }
 

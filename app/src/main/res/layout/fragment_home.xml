@@ -122,93 +122,14 @@
                         android:textStyle="bold"/>
                 </LinearLayout>
 
-                <!-- Filas de horario -->
+                <!-- Filas construidas dinámicamente desde BarberiaData -->
                 <LinearLayout
+                    android:id="@+id/contenedorHorario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingHorizontal="18dp"
-                    android:paddingVertical="14dp">
-
-                    <!-- Lun–Vie -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lunes — Viernes"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:fontFamily="@font/grotesk"
-                            android:textColor="@color/text_primary_light"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="09:00–14:00  ·  16:00–20:00"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary_light"/>
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp"
-                        android:background="@color/divider_light" android:layout_marginBottom="10dp"/>
-
-                    <!-- Sábado -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Sábado"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:fontFamily="@font/grotesk"
-                            android:textColor="@color/text_primary_light"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="09:00–14:00"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary_light"/>
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp"
-                        android:background="@color/divider_light" android:layout_marginBottom="10dp"/>
-
-                    <!-- Domingo -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Domingo"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:fontFamily="@font/grotesk"
-                            android:textColor="@color/text_primary_light"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="CERRADO"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.05"
-                            android:textColor="@color/red_500"/>
-                    </LinearLayout>
-                </LinearLayout>
+                    android:paddingVertical="14dp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -488,51 +409,12 @@
                     android:textColor="@color/deep_purple_500"
                     android:layout_marginBottom="14dp"/>
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Corte clásico"
-                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="12€" android:textStyle="bold" android:textSize="15sp"
-                        android:textColor="@color/deep_purple_500"/>
-                </LinearLayout>
-                <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/purple_300" android:alpha="0.4" android:layout_marginBottom="10dp"/>
-
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Barba"
-                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="8€" android:textStyle="bold" android:textSize="15sp"
-                        android:textColor="@color/deep_purple_500"/>
-                </LinearLayout>
-                <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/purple_300" android:alpha="0.4" android:layout_marginBottom="10dp"/>
-
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Fade"
-                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="8€" android:textStyle="bold" android:textSize="15sp"
-                        android:textColor="@color/deep_purple_500"/>
-                </LinearLayout>
-                <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/purple_300" android:alpha="0.4" android:layout_marginBottom="10dp"/>
-
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="Corte + Barba"
-                        android:textSize="15sp" android:textColor="@color/text_primary_light"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="18€" android:textStyle="bold" android:textSize="15sp"
-                        android:textColor="@color/deep_purple_500"/>
-                </LinearLayout>
+                <!-- Filas construidas dinámicamente desde BarberiaData.serviciosPopulares -->
+                <LinearLayout
+                    android:id="@+id/contenedorServicios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

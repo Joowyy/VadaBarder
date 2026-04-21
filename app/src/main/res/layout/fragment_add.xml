@@ -138,7 +138,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SERVICIO"
+                    android:text="SERVICIOS (máx. 2)"
                     android:textAllCaps="true"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -151,9 +151,100 @@
                     android:id="@+id/chipGroupServicios"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:singleSelection="true"
+                    app:singleSelection="false"
                     app:chipSpacingHorizontal="8dp"
                     app:chipSpacingVertical="6dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- RESUMEN DE PRECIO (visible al seleccionar servicios) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardResumen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/purple_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardServicios">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Fila: TOTAL + precio -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TOTAL"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:fontFamily="@font/grotesk"
+                        android:textColor="@color/text_primary_light"/>
+
+                    <TextView
+                        android:id="@+id/tvPrecioTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0€"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/grotesk"
+                        android:textColor="@color/deep_purple_500"/>
+
+                </LinearLayout>
+
+                <!-- Toggle desglose -->
+                <TextView
+                    android:id="@+id/tvToggleDesglose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ver desglose ▾"
+                    android:textSize="12sp"
+                    android:textColor="@color/deep_purple_500"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <!-- Desglose expandible -->
+                <LinearLayout
+                    android:id="@+id/layoutDesglose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/purple_300"
+                        android:alpha="0.4"
+                        android:layout_marginBottom="10dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/contenedorDesglose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -168,7 +259,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginHorizontal="8dp"
             android:text="Agregar cita"
-            app:layout_constraintTop_toBottomOf="@id/cardServicios"
+            app:layout_constraintTop_toBottomOf="@id/cardResumen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
