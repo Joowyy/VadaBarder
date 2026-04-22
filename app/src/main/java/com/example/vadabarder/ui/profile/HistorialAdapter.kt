@@ -1,4 +1,4 @@
-package com.example.vadabarder.data.model
+package com.example.vadabarder.ui.profile
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vadabarder.R
+import com.example.vadabarder.data.model.Cita
 
 class HistorialAdapter(private var citas: List<Cita>) :
     RecyclerView.Adapter<HistorialAdapter.CitaViewHolder>() {

@@ -10,7 +10,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vadabarder.R
 import com.example.vadabarder.data.model.Cita
-import com.example.vadabarder.data.model.HistorialAdapter
+import com.example.vadabarder.ui.profile.HistorialAdapter
 import com.example.vadabarder.viewmodel.UserViewModel
 import com.example.vadabarder.databinding.FragmentProfileBinding
 
