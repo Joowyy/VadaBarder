@@ -9,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vadabarder.R
-import com.example.vadabarder.data.model.Cita
 import com.example.vadabarder.ui.profile.HistorialAdapter
+import com.example.vadabarder.viewmodel.CitaViewModel
 import com.example.vadabarder.viewmodel.UserViewModel
 import com.example.vadabarder.databinding.FragmentProfileBinding
 
@@ -19,6 +19,7 @@ class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val userViewModel: UserViewModel by activityViewModels()
+    private val citaViewModel: CitaViewModel by activityViewModels()
     private lateinit var adapter: HistorialAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +53,7 @@ class ProfileFragment : Fragment() {
         binding.rvHistorial.adapter = adapter
         binding.rvHistorial.layoutManager = LinearLayoutManager(requireContext())
 
-        // Observar cambios en el historial de citas
-        userViewModel.historialCitas.observe(viewLifecycleOwner) { citas ->
+        citaViewModel.citas.observe(viewLifecycleOwner) { citas ->
             adapter.actualizarCitas(citas)
         }
 
