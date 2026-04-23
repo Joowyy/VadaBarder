@@ -68,4 +68,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
+    // LiveData switchMap (necesario para filtrar citas por userId en CitaViewModel)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
 }

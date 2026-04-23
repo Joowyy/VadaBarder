@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.example.vadabarder.data.model.Cita
 import com.example.vadabarder.databinding.FragmentAddBinding
 import com.example.vadabarder.viewmodel.CitaViewModel
+import com.example.vadabarder.viewmodel.UserViewModel
 import com.google.android.material.chip.Chip
 import androidx.core.content.ContextCompat
 import com.example.vadabarder.R
@@ -20,6 +21,7 @@ class AddFragment : Fragment() {
 
     private var _binding : FragmentAddBinding? = null
     private val binding get() = _binding!!
+    private val userViewModel: UserViewModel by activityViewModels()
     private val citaViewModel: CitaViewModel by activityViewModels()
 
     private var fechaSeleccionada: String? = null
@@ -86,7 +88,13 @@ class AddFragment : Fragment() {
             val servicio  = servicios.joinToString(" + ")
             val precio    = "${servicios.sumOf { BarberiaData.servicios[it] ?: 0 }}€"
 
-            citaViewModel.insertar(Cita(fecha = fecha, hora = hora, servicio = servicio, precio = precio))
+            val userId = userViewModel.usuarioActual?.uid ?: run {
+                Toast.makeText(requireContext(), "Error: sesión no iniciada", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            citaViewModel.insertar(
+                Cita(userId = userId, fecha = fecha, hora = hora, servicio = servicio, precio = precio)
+            )
             Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
             resetFormulario()
         }
@@ -239,9 +247,10 @@ class AddFragment : Fragment() {
         }
     }
 
-    // Memory Leaks
-    override fun onDestroy() {
-        super.onDestroy()
+    // Memory Leaks — onDestroyView (no onDestroy) para liberar el binding
+    // cuando la vista se destruye pero el fragment sigue en el back stack
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

@@ -8,6 +8,8 @@ data class Cita(
 
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    // FK lógica al usuario propietario; cuando llegue Firebase Auth aquí irá su UID
+    val userId: String,
     val fecha: String,
     val hora: String,
     val servicio: String,

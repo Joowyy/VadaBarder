@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bienvenida.text = "¡Bienvenido ${userViewModel.user}!"
+        binding.bienvenida.text = "¡Bienvenido ${userViewModel.usuarioActual?.nombre}!"
 
         val verHorario   = view.findViewById<MaterialButton>(R.id.verHorario)
         val tablaHorario = view.findViewById<MaterialCardView>(R.id.cardHorario)
