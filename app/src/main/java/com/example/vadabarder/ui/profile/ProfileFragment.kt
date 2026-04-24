@@ -9,9 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vadabarder.R
-import com.example.vadabarder.data.model.Cita
-import com.example.vadabarder.data.model.HistorialAdapter
+import com.example.vadabarder.ui.profile.HistorialAdapter
+import com.example.vadabarder.viewmodel.CitaViewModel
 import com.example.vadabarder.viewmodel.UserViewModel
+
 import com.example.vadabarder.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -19,6 +20,7 @@ class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val userViewModel: UserViewModel by activityViewModels()
+    private val citaViewModel: CitaViewModel by activityViewModels()
     private lateinit var adapter: HistorialAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,19 +43,22 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var nombre = userViewModel.user.toString()
-        var correo = userViewModel.correo.toString()
+        // Datos del usuario activo desde la sesión en memoria
+        binding.tvNombre.text = userViewModel.usuarioActual?.nombre ?: ""
+        binding.tvCorreo.text = userViewModel.usuarioActual?.correo ?: ""
 
-        binding.tvNombre.text = nombre
-        binding.tvCorreo.text = correo
+        // Indicar al CitaViewModel qué usuario está activo para filtrar sus citas en Room
+        userViewModel.usuarioActual?.uid?.let { uid ->
+            citaViewModel.setUsuario(uid)
+        }
 
         // Configurar RecyclerView
         adapter = HistorialAdapter(emptyList())
         binding.rvHistorial.adapter = adapter
         binding.rvHistorial.layoutManager = LinearLayoutManager(requireContext())
 
-        // Observar cambios en el historial de citas
-        userViewModel.historialCitas.observe(viewLifecycleOwner) { citas ->
+        // Room notifica automáticamente cuando cambian las citas del usuario
+        citaViewModel.citas.observe(viewLifecycleOwner) { citas ->
             adapter.actualizarCitas(citas)
         }
 
@@ -64,8 +69,8 @@ class ProfileFragment : Fragment() {
                 .setMessage("¿Estás seguro de que quieres cerrar sesión?")
                 .setPositiveButton("Sí") { dialog, _ ->
 
-                    // Vaciar los valores del ViewModel
-                    userViewModel.limpiarViewModel()
+                    // Cerrar la sesión activa
+                    userViewModel.cerrarSesion()
 
                     // Navega
                     var navController = findNavController(view)
@@ -83,9 +88,10 @@ class ProfileFragment : Fragment() {
 
     }
 
-    // Memory Leaks
-    override fun onDestroy() {
-        super.onDestroy()
+    // Memory Leaks — onDestroyView (no onDestroy) para liberar el binding
+    // cuando la vista se destruye pero el fragment sigue en el back stack
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
