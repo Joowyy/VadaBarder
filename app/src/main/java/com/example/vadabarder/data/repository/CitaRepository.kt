@@ -12,7 +12,8 @@ class CitaRepository(application: Application) {
     private val citaDao = VadaBarberDatabase.getInstance(application).citaDao()
     private val executor: Executor = Executors.newSingleThreadExecutor()
 
-    fun obtenerCitas(): LiveData<List<Cita>> = citaDao.obtenerTodas()
+    // Filtra las citas por el usuario activo
+    fun obtenerCitas(userId: String): LiveData<List<Cita>> = citaDao.obtenerPorUsuario(userId)
 
     fun insertar(cita: Cita) {
         executor.execute { citaDao.insertar(cita) }

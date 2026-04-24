@@ -16,6 +16,7 @@ interface CitaDao {
     @Delete
     fun eliminar(cita: Cita)
 
-    @Query("SELECT * FROM citas ORDER BY fecha ASC, hora ASC")
-    fun obtenerTodas(): LiveData<List<Cita>>
+    // Solo devuelve las citas del usuario activo; Room actualiza el LiveData automáticamente
+    @Query("SELECT * FROM citas WHERE userId = :userId ORDER BY fecha ASC, hora ASC")
+    fun obtenerPorUsuario(userId: String): LiveData<List<Cita>>
 }
