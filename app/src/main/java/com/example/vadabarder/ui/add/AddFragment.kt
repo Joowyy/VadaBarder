@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.vadabarder.data.model.Cita
 import com.example.vadabarder.databinding.FragmentAddBinding
+import com.example.vadabarder.viewmodel.AuthViewModel
 import com.example.vadabarder.viewmodel.CitaViewModel
-import com.example.vadabarder.viewmodel.UserViewModel
 import com.google.android.material.chip.Chip
 import androidx.core.content.ContextCompat
 import com.example.vadabarder.R
@@ -21,7 +21,7 @@ class AddFragment : Fragment() {
 
     private var _binding : FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private val userViewModel: UserViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
     private val citaViewModel: CitaViewModel by activityViewModels()
 
     private var fechaSeleccionada: String? = null
@@ -88,7 +88,7 @@ class AddFragment : Fragment() {
             val servicio  = servicios.joinToString(" + ")
             val precio    = "${servicios.sumOf { BarberiaData.servicios[it] ?: 0 }}€"
 
-            val userId = userViewModel.usuarioActual?.uid ?: run {
+            val userId = authViewModel.getCurrentUser()?.uid ?: run {
                 Toast.makeText(requireContext(), "Error: sesión no iniciada", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }

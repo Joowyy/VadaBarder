@@ -25,6 +25,8 @@ class CitaViewModel(application: Application) : AndroidViewModel(application) {
         _userId.value = userId
     }
 
+    fun limpiarUsuario() { _userId.value = "" }
+
     fun insertar(cita: Cita) = repository.insertar(cita)
 
     fun eliminar(cita: Cita) = repository.eliminar(cita)

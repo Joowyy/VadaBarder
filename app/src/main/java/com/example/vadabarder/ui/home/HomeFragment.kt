@@ -13,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.vadabarder.R
 import com.example.vadabarder.data.BarberiaData
 import com.example.vadabarder.databinding.FragmentHomeBinding
-import com.example.vadabarder.viewmodel.UserViewModel
+import com.example.vadabarder.viewmodel.AuthViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val userViewModel: UserViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bienvenida.text = "¡Bienvenido ${userViewModel.usuarioActual?.nombre}!"
+        binding.bienvenida.text = "¡Bienvenido ${authViewModel.getCurrentUser()?.displayName}!"
 
         val verHorario   = view.findViewById<MaterialButton>(R.id.verHorario)
         val tablaHorario = view.findViewById<MaterialCardView>(R.id.cardHorario)
