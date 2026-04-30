@@ -1,4 +1,5 @@
 plugins {
+    id("com.google.gms.google-services")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -70,5 +71,11 @@ dependencies {
 
     // LiveData switchMap (necesario para filtrar citas por userId en CitaViewModel)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.8.0"))
+
+    // Firebase Authentication
+    implementation("com.google.firebase:firebase-auth")
 
 }
