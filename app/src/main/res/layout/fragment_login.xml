@@ -61,11 +61,11 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 
-        <!-- Usuario -->
+        <!-- Correo electrónico -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Usuario"
+            android:text="Correo electrónico"
             android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@color/text_secondary_light"
@@ -73,13 +73,13 @@
             android:layout_marginBottom="6dp"/>
 
         <EditText
-            android:id="@+id/editTextNombre"
+            android:id="@+id/editTextCorreo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edittext_draw"
-            android:hint="Nombre de usuario..."
+            android:hint="Correo electrónico..."
             android:textAlignment="center"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:layout_marginBottom="18dp"/>
 
         <!-- Contraseña -->
