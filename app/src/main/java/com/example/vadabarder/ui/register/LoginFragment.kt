@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation.findNavController
 import com.example.vadabarder.R
 import com.example.vadabarder.data.model.AuthState
+import com.example.vadabarder.data.prefs.SessionPreferences
 import com.example.vadabarder.databinding.FragmentLoginBinding
 import com.example.vadabarder.viewmodel.AuthViewModel
 
@@ -36,6 +37,9 @@ class LoginFragment : Fragment() {
             return
         }
 
+        // Reflejar el último estado guardado en la checkbox
+        binding.cbRecordar.isChecked = SessionPreferences.isRecordar(requireContext())
+
         authViewModel.authState.observe(viewLifecycleOwner) { state ->
             state ?: return@observe
             when (state) {
@@ -48,6 +52,7 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val correo = binding.editTextCorreo.text.toString().trim()
             val psswd  = binding.editTextPsswd.text.toString()
+            SessionPreferences.setRecordar(requireContext(), binding.cbRecordar.isChecked)
             authViewModel.login(correo, psswd)
         }
 

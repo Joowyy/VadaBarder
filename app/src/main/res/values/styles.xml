@@ -41,4 +41,13 @@
         <item name="rippleColor">@color/red_300</item>
     </style>
 
+    <!-- CheckBox estilizada — tinte morado y texto secundario -->
+    <style name="VadaBarber.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/deep_purple_500</item>
+        <item name="android:textColor">@color/text_secondary_light</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:paddingStart">6dp</item>
+    </style>
+
 </resources>

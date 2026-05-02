@@ -101,7 +101,16 @@
             android:hint="Contraseña..."
             android:textAlignment="center"
             android:inputType="textPassword"
-            android:layout_marginBottom="28dp"/>
+            android:layout_marginBottom="14dp"/>
+
+        <!-- Recordar usuario -->
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbRecordar"
+            style="@style/VadaBarber.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recordar usuario"
+            android:layout_marginBottom="20dp"/>
 
         <!-- Botón -->
         <com.google.android.material.button.MaterialButton

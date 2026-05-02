@@ -10,7 +10,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.vadabarder.R
+import com.example.vadabarder.data.prefs.SessionPreferences
 import com.example.vadabarder.databinding.MainLayoutBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +23,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Si el usuario no marcó "Recordar", forzamos signOut antes de inflar la UI
+        // para que LoginFragment vea getCurrentUser() == null y no auto-redirija.
+        if (!SessionPreferences.isRecordar(this)) {
+            FirebaseAuth.getInstance().signOut()
+        }
 
         _binding = MainLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
