@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
 }
 
 android {
@@ -64,18 +63,12 @@ dependencies {
     //implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
 
-    // Room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
     // LiveData switchMap (necesario para filtrar citas por userId en CitaViewModel)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:34.8.0"))
-
-    // Firebase Authentication
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 
 }

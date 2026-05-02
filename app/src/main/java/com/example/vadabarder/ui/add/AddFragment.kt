@@ -15,6 +15,7 @@ import com.google.android.material.chip.Chip
 import androidx.core.content.ContextCompat
 import com.example.vadabarder.R
 import com.example.vadabarder.data.BarberiaData
+import com.example.vadabarder.data.model.AuthState
 import java.util.Calendar
 
 class AddFragment : Fragment() {
@@ -63,6 +64,23 @@ class AddFragment : Fragment() {
             }
         }
 
+        // Observador para la lista de citas.
+        citaViewModel.insertState.observe(viewLifecycleOwner) { state ->
+            state ?: return@observe
+            when (state) {
+                is AuthState.Loading -> binding.btnAgregarCita.isEnabled = false
+                is AuthState.Success -> {
+                    binding.btnAgregarCita.isEnabled = true
+                    Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
+                    resetFormulario()
+                }
+                is AuthState.Error -> {
+                    binding.btnAgregarCita.isEnabled = true
+                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         binding.btnAgregarCita.setOnClickListener {
             val fecha         = fechaSeleccionada
             val horaChip      = binding.chipGroupHoras.checkedChipId
@@ -95,8 +113,6 @@ class AddFragment : Fragment() {
             citaViewModel.insertar(
                 Cita(userId = userId, fecha = fecha, hora = hora, servicio = servicio, precio = precio)
             )
-            Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
-            resetFormulario()
         }
     }
 
