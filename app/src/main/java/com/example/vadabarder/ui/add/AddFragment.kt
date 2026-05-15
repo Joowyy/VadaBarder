@@ -26,6 +26,7 @@ class AddFragment : Fragment() {
     private val citaViewModel: CitaViewModel by activityViewModels()
 
     private var fechaSeleccionada: String? = null
+    private var horasOcupadasActuales: Set<String> = emptySet()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +51,16 @@ class AddFragment : Fragment() {
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             fechaSeleccionada = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
+            // Lanza el listener Firestore para los huecos de ese día
+            citaViewModel.consultarHorasDe(fechaSeleccionada!!)
             val cal = Calendar.getInstance().apply { set(year, month, dayOfMonth) }
             cargarHoras(cal.get(Calendar.DAY_OF_WEEK))
+        }
+
+        // Cuando lleguen (o cambien en vivo) las horas ocupadas, refleja en los chips
+        citaViewModel.horasOcupadas.observe(viewLifecycleOwner) { ocupadas ->
+            horasOcupadasActuales = ocupadas
+            aplicarHorasOcupadas()
         }
 
         binding.tvToggleDesglose.setOnClickListener {
@@ -156,16 +165,33 @@ class AddFragment : Fragment() {
 
         binding.cardHoras.visibility = View.VISIBLE
         horasFiltradas.forEach { hora ->
+            val ocupada = horasOcupadasActuales.contains(hora)
             val chip = Chip(requireContext()).apply {
                 text = hora
                 isCheckable = true
-                isClickable = true
+                isClickable = !ocupada
+                isEnabled = !ocupada
+                alpha = if (ocupada) 0.4f else 1f
                 layoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 ).apply { setMargins(8, 8, 8, 8) }
             }
             binding.chipGroupHoras.addView(chip)
+        }
+    }
+
+    // Recorre los chips ya construidos y aplica el estado ocupado/libre.
+    // Se usa para reaccionar a cambios en vivo del SnapshotListener.
+    private fun aplicarHorasOcupadas() {
+        for (i in 0 until binding.chipGroupHoras.childCount) {
+            val chip = binding.chipGroupHoras.getChildAt(i) as? Chip ?: continue
+            val ocupada = horasOcupadasActuales.contains(chip.text.toString())
+            chip.isEnabled = !ocupada
+            chip.isClickable = !ocupada
+            chip.alpha = if (ocupada) 0.4f else 1f
+            // Si la hora seleccionada se acaba de ocupar (otro usuario), deselecciónala
+            if (ocupada && chip.isChecked) chip.isChecked = false
         }
     }
 
