@@ -15,6 +15,7 @@ class HistorialAdapter(private var citas: List<Cita>) :
         val tvServicio: TextView = view.findViewById(R.id.tvServicio)
         val tvFechaHora: TextView = view.findViewById(R.id.tvFechaHora)
         val tvPrecio: TextView = view.findViewById(R.id.tvPrecio)
+        val divider: View = view.findViewById(R.id.dividerItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CitaViewHolder {
@@ -30,6 +31,7 @@ class HistorialAdapter(private var citas: List<Cita>) :
         holder.tvServicio.text = cita.servicio
         holder.tvFechaHora.text = "${cita.fecha} · ${cita.hora}"
         holder.tvPrecio.text = cita.precio
+        holder.divider.visibility = if (position == itemCount - 1) View.GONE else View.VISIBLE
     }
 
     fun actualizarCitas(nuevasCitas: List<Cita>) {

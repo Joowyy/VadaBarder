@@ -13,12 +13,18 @@ class CitaViewModel : ViewModel() {
     private val repository = CitaFirestoreRepository()
 
     private val _userId = MutableLiveData<String>()
+    private val _fechaConsulta = MutableLiveData<String>()
 
-    // switchMap: cada vez que _userId cambia, lanza un nuevo SnapshotListener en Firestore
-    // Similar al hecho anteriomente con Room.
+    // switchMap: cada vez que _userId cambia, lanza un nuevo SnapshotListener en Firestore.
     val citas: LiveData<List<Cita>> = _userId.switchMap { uid ->
         if (uid.isBlank()) MutableLiveData(emptyList())
         else repository.observarCitas(uid)
+    }
+
+    // Horas ya reservadas para la fecha consultada — se recalcula en tiempo real.
+    val horasOcupadas: LiveData<Set<String>> = _fechaConsulta.switchMap { fecha ->
+        if (fecha.isBlank()) MutableLiveData(emptySet())
+        else repository.observarHorasOcupadas(fecha)
     }
 
     private val _insertState = MutableLiveData<AuthState<Unit>?>()
@@ -26,8 +32,11 @@ class CitaViewModel : ViewModel() {
 
     fun setUsuario(userId: String) { _userId.value = userId }
 
+    fun consultarHorasDe(fecha: String) { _fechaConsulta.value = fecha }
+
     fun limpiarUsuario() {
         _userId.value = ""
+        _fechaConsulta.value = ""
         repository.detenerEscucha()
     }
 
@@ -39,9 +48,11 @@ class CitaViewModel : ViewModel() {
         }
     }
 
-    fun eliminar(uid: String, citaId: String) {
+    fun limpiarInsertState() { _insertState.value = null }
+
+    fun eliminar(citaId: String) {
         // El SnapshotListener actualiza la UI automáticamente al borrar
-        repository.eliminar(uid, citaId) { _, _ -> }
+        repository.eliminar(citaId) { _, _ -> }
     }
 
     override fun onCleared() {
