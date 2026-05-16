@@ -71,4 +71,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.10.0")
+
 }

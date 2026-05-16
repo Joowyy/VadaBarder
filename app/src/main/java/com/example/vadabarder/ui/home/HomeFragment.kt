@@ -52,10 +52,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.bienvenida.text = "¡Bienvenido ${authViewModel.getCurrentUser()?.displayName}!"
+        // Reactivo: se actualiza si Firebase rehidrata la sesión tras process death
+        authViewModel.currentUser.observe(viewLifecycleOwner) { user ->
+            binding.bienvenida.text = "¡Bienvenido ${user?.displayName ?: ""}!"
+            user?.uid?.let { uid -> citaViewModel.setUsuario(uid) }
+        }
 
-        val uid = authViewModel.getCurrentUser()?.uid
-        if (uid != null) citaViewModel.setUsuario(uid)
         citaViewModel.citas.observe(viewLifecycleOwner) { citas ->
             val pendientes = citas.filter { esFutura(it) }
             actualizarCitasHome(pendientes)

@@ -47,11 +47,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user = authViewModel.getCurrentUser()
-        binding.tvNombre.text = user?.displayName ?: ""
-        binding.tvCorreo.text = user?.email ?: ""
-
-        user?.uid?.let { uid -> citaViewModel.setUsuario(uid) }
+        // Reactivo: se actualiza si Firebase rehidrata la sesión tras process death
+        authViewModel.currentUser.observe(viewLifecycleOwner) { user ->
+            binding.tvNombre.text = user?.displayName ?: ""
+            binding.tvCorreo.text = user?.email ?: ""
+            user?.uid?.let { uid -> citaViewModel.setUsuario(uid) }
+        }
 
         adapter = HistorialAdapter(emptyList())
         binding.rvHistorial.adapter = adapter

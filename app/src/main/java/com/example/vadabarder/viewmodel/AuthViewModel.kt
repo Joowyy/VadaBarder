@@ -5,16 +5,35 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vadabarder.data.model.AuthState
 import com.example.vadabarder.data.repository.AuthRepository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 
 class AuthViewModel : ViewModel() {
 
     private val repository = AuthRepository()
+    private val auth = FirebaseAuth.getInstance()
 
+    // ── Estado de operaciones (login / registro) ─────────────────────────
     private val _authState = MutableLiveData<AuthState<FirebaseUser>?>()
     val authState: LiveData<AuthState<FirebaseUser>?> get() = _authState
 
+    // ── Usuario activo — reactivo al AuthStateListener de Firebase ───────
+    // Se inicializa con el valor sincrónico del disco para no mostrar null
+    // en el primer frame, y se actualiza si Firebase cambia la sesión
+    // (renovación de token, cierre de sesión, restauración tras process death).
+    private val _currentUser = MutableLiveData<FirebaseUser?>(auth.currentUser)
+    val currentUser: LiveData<FirebaseUser?> get() = _currentUser
+
+    private val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+        _currentUser.postValue(firebaseAuth.currentUser)
+    }
+
+    init {
+        auth.addAuthStateListener(authStateListener)
+    }
+
+    // ── Operaciones de auth ───────────────────────────────────────────────
     fun login(email: String, password: String) {
         if (email.isBlank() || password.isBlank()) {
             _authState.value = AuthState.Error("Completa todos los campos")
@@ -47,10 +66,16 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun getCurrentUser(): FirebaseUser? = repository.getCurrentUser()
+    /** Lectura síncrona — úsala solo donde no haya un observer activo (ej. lógica puntual). */
+    fun getCurrentUser(): FirebaseUser? = auth.currentUser
 
     fun cerrarSesion() {
-        repository.logout()
+        repository.logout()   // dispara el AuthStateListener → _currentUser = null
         _authState.value = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        auth.removeAuthStateListener(authStateListener)
     }
 }
