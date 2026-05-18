@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vadabarder.R
+import com.example.vadabarder.data.BarberiaData
 import com.example.vadabarder.data.model.Cita
 
 class HistorialAdapter(private var citas: List<Cita>) :
@@ -28,7 +29,7 @@ class HistorialAdapter(private var citas: List<Cita>) :
 
     override fun onBindViewHolder(holder: CitaViewHolder, position: Int) {
         val cita = citas[position]
-        holder.tvServicio.text = cita.servicio
+        holder.tvServicio.text = BarberiaData.resolverServicio(holder.itemView.context, cita.servicio)
         holder.tvFechaHora.text = "${cita.fecha} · ${cita.hora}"
         holder.tvPrecio.text = cita.precio
         holder.divider.visibility = if (position == itemCount - 1) View.GONE else View.VISIBLE

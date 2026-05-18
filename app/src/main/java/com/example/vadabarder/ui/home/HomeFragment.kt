@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
 
         // Reactivo: se actualiza si Firebase rehidrata la sesión tras process death
         authViewModel.currentUser.observe(viewLifecycleOwner) { user ->
-            binding.bienvenida.text = "¡Bienvenido ${user?.displayName ?: ""}!"
+            binding.bienvenida.text = getString(R.string.bienvenida, user?.displayName ?: "")
             user?.uid?.let { uid -> citaViewModel.setUsuario(uid) }
         }
 
@@ -69,10 +69,10 @@ class HomeFragment : Fragment() {
         verHorario.setOnClickListener {
             if (tablaHorario.visibility == View.GONE) {
                 tablaHorario.visibility = View.VISIBLE
-                verHorario.text = "OCULTAR HORARIO"
+                verHorario.text = getString(R.string.btn_ocultar_horario)
             } else {
                 tablaHorario.visibility = View.GONE
-                verHorario.text = "VER HORARIO"
+                verHorario.text = getString(R.string.btn_ver_horario)
             }
         }
 
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
         contenedor.removeAllViews()
         val entradas = BarberiaData.horarioSemana.entries.toList()
 
-        entradas.forEachIndexed { index, (dia, horario) ->
+        entradas.forEachIndexed { index, (diaResId, horario) ->
             val fila = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
                 gravity = android.view.Gravity.CENTER_VERTICAL
@@ -111,7 +111,7 @@ class HomeFragment : Fragment() {
             }
 
             val tvDia = TextView(requireContext()).apply {
-                text = dia
+                text = getString(diaResId)          // ← nombre del día localizado
                 textSize = 13f
                 setTypeface(ResourcesCompat.getFont(requireContext(), R.font.grotesk),
                     android.graphics.Typeface.BOLD)
@@ -125,7 +125,7 @@ class HomeFragment : Fragment() {
                     text = horario
                     setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary_light))
                 } else {
-                    text = "CERRADO"
+                    text = getString(R.string.cerrado)
                     setTypeface(null, android.graphics.Typeface.BOLD)
                     setTextColor(ContextCompat.getColor(requireContext(), R.color.red_500))
                 }
@@ -147,8 +147,8 @@ class HomeFragment : Fragment() {
         contenedor.removeAllViews()
         val populares = BarberiaData.serviciosPopulares
 
-        populares.forEachIndexed { index, nombre ->
-            val precio = BarberiaData.servicios[nombre] ?: 0
+        populares.forEachIndexed { index, resId ->
+            val precio = BarberiaData.servicios[resId] ?: 0
             val fila = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
                 layoutParams = LinearLayout.LayoutParams(
@@ -158,7 +158,7 @@ class HomeFragment : Fragment() {
             }
 
             val tvNombre = TextView(requireContext()).apply {
-                text = nombre
+                text = getString(resId)             // ← nombre de servicio localizado
                 textSize = 15f
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary_light))
                 layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
@@ -196,10 +196,10 @@ class HomeFragment : Fragment() {
             val diffHoras = TimeUnit.MILLISECONDS.toHours(diffMs)
             val diffDias = TimeUnit.MILLISECONDS.toDays(diffMs)
             when {
-                diffHoras < 1  -> "En menos de 1h"
-                diffHoras < 24 -> "En ~${diffHoras}h"
-                diffDias == 1L -> "Mañana"
-                else           -> "En ${diffDias} días"
+                diffHoras < 1  -> getString(R.string.countdown_menos_1h)
+                diffHoras < 24 -> getString(R.string.countdown_horas, diffHoras.toInt())
+                diffDias == 1L -> getString(R.string.countdown_manana)
+                else           -> getString(R.string.countdown_dias, diffDias.toInt())
             }
         } catch (e: Exception) { "" }
     }
@@ -208,18 +208,21 @@ class HomeFragment : Fragment() {
         val contenedor = binding.contenedorCitasHome
         contenedor.removeAllViews()
         if (citas.isEmpty()) {
-            val texto = "No tienes citas pendientes.\n¡Agenda una pulsando aquí!"
-            val span = SpannableString(texto)
-            val inicio = texto.indexOf("¡Agenda")
-            span.setSpan(object : ClickableSpan() {
-                override fun onClick(widget: View) {
-                    findNavController().navigate(R.id.addFragment)
-                }
-                override fun updateDrawState(ds: TextPaint) {
-                    ds.color = ContextCompat.getColor(requireContext(), R.color.deep_purple_500)
-                    ds.isUnderlineText = true
-                }
-            }, inicio, texto.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val texto  = getString(R.string.sin_citas_mensaje)
+            val parte  = getString(R.string.parte_agenda)
+            val span   = SpannableString(texto)
+            val inicio = texto.indexOf(parte)
+            if (inicio >= 0) {
+                span.setSpan(object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        findNavController().navigate(R.id.addFragment)
+                    }
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.color = ContextCompat.getColor(requireContext(), R.color.deep_purple_500)
+                        ds.isUnderlineText = true
+                    }
+                }, inicio, texto.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
             binding.tvSinCitasHome.text = span
             binding.tvSinCitasHome.movementMethod = LinkMovementMethod.getInstance()
             binding.tvSinCitasHome.visibility = View.VISIBLE
@@ -244,7 +247,7 @@ class HomeFragment : Fragment() {
                 )
             }
             filaTop.addView(TextView(requireContext()).apply {
-                text = cita.servicio
+                text = BarberiaData.resolverServicio(requireContext(), cita.servicio)
                 textSize = 13f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary_light))

@@ -25,16 +25,23 @@ class CitaFirestoreRepository {
         "${fecha.replace("/", "-")}_$hora"
 
     // Historial del usuario — filtra la colección global por userId.
+    // Nota: no usamos orderBy("fecha") porque requeriría un índice compuesto
+    // (userId, fecha) en Firestore. Ordenamos en el cliente para evitarlo.
     fun observarCitas(uid: String): LiveData<List<Cita>> {
         val liveData = MutableLiveData<List<Cita>>()
         listenerHistorial?.remove()
         listenerHistorial = reservasRef
             .whereEqualTo("userId", uid)
-            .orderBy("fecha")
             .addSnapshotListener { snapshot, error ->
-                if (error != null) return@addSnapshotListener
+                if (error != null) {
+                    android.util.Log.e("CitaRepo", "observarCitas error: ${error.message}")
+                    liveData.postValue(emptyList())
+                    return@addSnapshotListener
+                }
+                val sdf = java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.ROOT)
                 val citas = snapshot?.documents
                     ?.mapNotNull { it.toObject(Cita::class.java) }
+                    ?.sortedBy { sdf.parse("${it.fecha} ${it.hora}")?.time ?: 0L }
                     ?: emptyList()
                 liveData.postValue(citas)
             }
@@ -48,7 +55,10 @@ class CitaFirestoreRepository {
         listenerHoras = reservasRef
             .whereEqualTo("fecha", fecha)
             .addSnapshotListener { snapshot, error ->
-                if (error != null) return@addSnapshotListener
+                if (error != null) {
+                    android.util.Log.e("CitaRepo", "observarHorasOcupadas error: ${error.message}")
+                    return@addSnapshotListener
+                }
                 val horas = snapshot?.documents
                     ?.mapNotNull { it.getString("hora") }
                     ?.toSet()

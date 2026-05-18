@@ -1,10 +1,14 @@
 package com.example.vadabarder.ui.register
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.OvershootInterpolator
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation.findNavController
@@ -37,6 +41,8 @@ class RegistroFragment : Fragment() {
             return
         }
 
+        animarLogo(binding.imgLogo)
+
         // Reflejar el último estado guardado en la checkbox
         binding.cbRecordar.isChecked = SessionPreferences.isRecordar(requireContext())
 
@@ -62,7 +68,38 @@ class RegistroFragment : Fragment() {
         }
     }
 
+    private fun animarLogo(logo: ImageView) {
+        // Entrada: scale desde 0.65 a 1.0 con efecto overshoot + fade in
+        logo.scaleX = 0.65f
+        logo.scaleY = 0.65f
+        logo.alpha = 0f
+        logo.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .alpha(1f)
+            .setDuration(520)
+            .setInterpolator(OvershootInterpolator(1.6f))
+            .withEndAction {
+                // Pulso sutil continuo
+                ObjectAnimator.ofFloat(logo, View.SCALE_X, 1f, 1.06f, 1f).apply {
+                    duration = 3200
+                    repeatCount = ObjectAnimator.INFINITE
+                    interpolator = AccelerateDecelerateInterpolator()
+                    start()
+                }
+                ObjectAnimator.ofFloat(logo, View.SCALE_Y, 1f, 1.06f, 1f).apply {
+                    duration = 3200
+                    repeatCount = ObjectAnimator.INFINITE
+                    interpolator = AccelerateDecelerateInterpolator()
+                    start()
+                }
+            }
+            .start()
+    }
+
     override fun onDestroyView() {
+        binding.imgLogo.animate().cancel()
+        binding.imgLogo.clearAnimation()
         super.onDestroyView()
         _binding = null
     }
