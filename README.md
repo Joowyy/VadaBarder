@@ -258,16 +258,6 @@ Al eliminar una cita, ambos workers se cancelan con `cancelAllWorkByTag`.
 
 ---
 
-## Configuración y ejecución
-
-### Prerrequisitos
-
-- Android Studio Hedgehog o superior
-- JDK 11
-- Cuenta en [Firebase Console](https://console.firebase.google.com)
-
----
-
 <div align="center">
 
 *Proyecto académico desarrollado para el Proyecto Intermodular del Ciclo Superior de Desarrollo de Aplicaciones Multiplataforma (DAM) · 2025–2026*
