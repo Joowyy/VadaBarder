@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CREAR CUENTA"
+                android:text="@string/titulo_registro"
                 android:textAllCaps="true"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre de usuario"
+            android:text="@string/lbl_nombre"
             android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@color/text_secondary_light"
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edittext_draw"
-            android:hint="Nombre de usuario..."
+            android:hint="@string/hint_nombre"
             android:textAlignment="center"
             android:inputType="text"
             android:layout_marginBottom="16dp"/>
@@ -98,7 +98,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Correo electrónico"
+            android:text="@string/lbl_correo"
             android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@color/text_secondary_light"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edittext_draw"
-            android:hint="Correo..."
+            android:hint="@string/hint_correo"
             android:textAlignment="center"
             android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp"/>
@@ -119,7 +119,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contraseña"
+            android:text="@string/lbl_contrasena"
             android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@color/text_secondary_light"
@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edittext_draw"
-            android:hint="Contraseña..."
+            android:hint="@string/hint_contrasena"
             android:textAlignment="center"
             android:inputType="textPassword"
             android:layout_marginBottom="14dp"/>
@@ -142,7 +142,7 @@
             style="@style/VadaBarber.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recordar usuario"
+            android:text="@string/lbl_recordar"
             android:layout_marginBottom="20dp"/>
 
         <!-- Botón -->
@@ -151,7 +151,7 @@
             style="@style/VadaBarber.Button.CTA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGISTRARSE"
+            android:text="@string/btn_registro"
             android:layout_marginBottom="36dp"/>
 
         <!-- Link login -->
@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿Ya tienes cuenta?  "
+                android:text="@string/ya_cuenta"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary_light"/>
 
@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Iniciar sesión"
+                android:text="@string/lnk_iniciar_sesion"
                 android:textColor="@color/deep_purple_500"
                 android:textStyle="bold"
                 android:textSize="14sp"/>

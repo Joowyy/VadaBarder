@@ -1,5 +1,6 @@
 package com.example.vadabarder.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
@@ -19,8 +21,11 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vadabarder.R
+import com.example.vadabarder.data.BarberiaData
 import com.example.vadabarder.data.model.Cita
 import com.example.vadabarder.databinding.FragmentProfileBinding
+import com.example.vadabarder.ui.main.MainActivity
+import com.example.vadabarder.utils.LocaleHelper
 import com.example.vadabarder.viewmodel.AuthViewModel
 import com.example.vadabarder.viewmodel.CitaViewModel
 import java.text.SimpleDateFormat
@@ -64,11 +69,12 @@ class ProfileFragment : Fragment() {
             actualizarCitasPendientesPerfil(pendientes)
         }
 
+        // ── Cerrar sesión ────────────────────────────────────────────────────
         binding.cerrarSesion.setOnClickListener {
-            androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                .setTitle("Cerrar sesión")
-                .setMessage("¿Estás seguro de que quieres cerrar sesión?")
-                .setPositiveButton("Sí") { dialog, _ ->
+            AlertDialog.Builder(requireContext())
+                .setTitle(getString(R.string.msg_cerrar_sesion_titulo))
+                .setMessage(getString(R.string.msg_cerrar_sesion_mensaje))
+                .setPositiveButton(getString(R.string.btn_si)) { dialog, _ ->
                     citaViewModel.limpiarUsuario()
                     authViewModel.cerrarSesion()
                     val options = NavOptions.Builder()
@@ -77,12 +83,54 @@ class ProfileFragment : Fragment() {
                     findNavController(view).navigate(R.id.registroFragment, null, options)
                     dialog.dismiss()
                 }
-                .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
+                .setNegativeButton(getString(R.string.btn_cancelar)) { dialog, _ -> dialog.dismiss() }
                 .create()
                 .show()
         }
+
+        // ── Selector de idioma ───────────────────────────────────────────────
+        binding.btnIdioma.setOnClickListener {
+            mostrarSelectorIdioma()
+        }
     }
 
+    // ── Diálogo de selección de idioma ──────────────────────────────────────
+    private fun mostrarSelectorIdioma() {
+        val opciones = arrayOf(
+            getString(R.string.idioma_es),
+            getString(R.string.idioma_en),
+            getString(R.string.idioma_fr)
+        )
+        val codigos = arrayOf("es", "en", "fr")
+        val actual  = codigos.indexOf(LocaleHelper.getLocale(requireContext())).coerceAtLeast(0)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.titulo_selector_idioma))
+            .setSingleChoiceItems(opciones, actual) { dialog, which ->
+                val lang = codigos[which]
+                if (lang != LocaleHelper.getLocale(requireContext())) {
+                    LocaleHelper.setLocale(requireContext(), lang)
+                    dialog.dismiss()
+                    reiniciarApp()
+                } else {
+                    dialog.dismiss()
+                }
+            }
+            .setNegativeButton(getString(R.string.btn_cancelar)) { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
+
+    /** Reinicia la Activity para aplicar el nuevo locale. */
+    private fun reiniciarApp() {
+        val intent = Intent(requireContext(), MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
+    // ── Lógica de citas ─────────────────────────────────────────────────────
     private fun esFutura(cita: Cita): Boolean {
         return try {
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
@@ -94,14 +142,14 @@ class ProfileFragment : Fragment() {
         return try {
             val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
             val citaDate = sdf.parse("$fecha $hora") ?: return ""
-            val diffMs = citaDate.time - Date().time
+            val diffMs   = citaDate.time - Date().time
             val diffHoras = TimeUnit.MILLISECONDS.toHours(diffMs)
-            val diffDias = TimeUnit.MILLISECONDS.toDays(diffMs)
+            val diffDias  = TimeUnit.MILLISECONDS.toDays(diffMs)
             when {
-                diffHoras < 1  -> "En menos de 1h"
-                diffHoras < 24 -> "En ~${diffHoras}h"
-                diffDias == 1L -> "Mañana"
-                else           -> "En ${diffDias} días"
+                diffHoras < 1  -> getString(R.string.countdown_menos_1h)
+                diffHoras < 24 -> getString(R.string.countdown_horas, diffHoras.toInt())
+                diffDias == 1L -> getString(R.string.countdown_manana)
+                else           -> getString(R.string.countdown_dias, diffDias.toInt())
             }
         } catch (e: Exception) { "" }
     }
@@ -110,18 +158,21 @@ class ProfileFragment : Fragment() {
         val contenedor = binding.contenedorCitasPendientesPerfil
         contenedor.removeAllViews()
         if (citas.isEmpty()) {
-            val texto = "No tienes citas pendientes.\n¡Agenda una pulsando aquí!"
-            val span = SpannableString(texto)
-            val inicio = texto.indexOf("¡Agenda")
-            span.setSpan(object : ClickableSpan() {
-                override fun onClick(widget: View) {
-                    findNavController().navigate(R.id.addFragment)
-                }
-                override fun updateDrawState(ds: TextPaint) {
-                    ds.color = ContextCompat.getColor(requireContext(), R.color.deep_purple_500)
-                    ds.isUnderlineText = true
-                }
-            }, inicio, texto.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val textoCompleto  = getString(R.string.sin_citas_mensaje)
+            val parteClickable = getString(R.string.parte_agenda)
+            val span  = SpannableString(textoCompleto)
+            val inicio = textoCompleto.indexOf(parteClickable)
+            if (inicio >= 0) {
+                span.setSpan(object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        findNavController().navigate(R.id.addFragment)
+                    }
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.color = ContextCompat.getColor(requireContext(), R.color.deep_purple_500)
+                        ds.isUnderlineText = true
+                    }
+                }, inicio, textoCompleto.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
             binding.tvSinCitasPerfil.text = span
             binding.tvSinCitasPerfil.movementMethod = LinkMovementMethod.getInstance()
             binding.tvSinCitasPerfil.visibility = View.VISIBLE
@@ -139,7 +190,7 @@ class ProfileFragment : Fragment() {
                 })
             }
             contenedor.addView(TextView(requireContext()).apply {
-                text = cita.servicio
+                text = BarberiaData.resolverServicio(requireContext(), cita.servicio)
                 textSize = 14f
                 setTypeface(null, android.graphics.Typeface.BOLD)
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary_light))
