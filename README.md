@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✂️ VadaBarber
+# VadaBarber
 
 **Aplicación Android de reserva de citas para barbería**
 
@@ -265,39 +265,6 @@ Al eliminar una cita, ambos workers se cancelan con `cancelAllWorkByTag`.
 - Android Studio Hedgehog o superior
 - JDK 11
 - Cuenta en [Firebase Console](https://console.firebase.google.com)
-
-### Pasos
-
-1. **Clona el repositorio**
-   ```bash
-   git clone https://github.com/Joowyy/VadaBarder.git
-   cd VadaBarder
-   ```
-
-2. **Conecta Firebase**
-   - Crea un proyecto en Firebase Console
-   - Activa **Authentication** → método *Correo/Contraseña*
-   - Activa **Cloud Firestore** en modo producción
-   - Descarga `google-services.json` y colócalo en `app/`
-
-3. **Despliega las reglas de Firestore**
-   - Copia las reglas de la sección [Reglas de seguridad](#reglas-de-seguridad-firestore) en la consola
-
-4. **Compila y ejecuta**
-   ```bash
-   ./gradlew assembleDebug
-   ```
-   O abre el proyecto en Android Studio y pulsa **Run**.
-
-> **Nota:** La primera vez que se carguen citas en un dispositivo real, Logcat puede mostrar un enlace para crear un índice en Firestore si se añade `orderBy` a alguna consulta futura. Con la configuración actual (ordenación en cliente) no es necesario.
-
----
-
-## Autores
-
-| Nombre | GitHub |
-|---|---|
-| Joel Sánchez Fernández | [@Joowyy](https://github.com/Joowyy) |
 
 ---
 
