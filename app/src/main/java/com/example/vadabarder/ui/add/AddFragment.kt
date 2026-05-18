@@ -47,7 +47,7 @@ class AddFragment : Fragment() {
         // Deshabilitar fechas pasadas en el calendario
         binding.calendarView.minDate = System.currentTimeMillis()
 
-        cargarServicios(BarberiaData.servicios.keys.toList())
+        cargarServicios(BarberiaData.servicios.keys.toList())  // List<@StringRes Int>
 
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             fechaSeleccionada = "%02d/%02d/%04d".format(dayOfMonth, month + 1, year)
@@ -66,10 +66,10 @@ class AddFragment : Fragment() {
         binding.tvToggleDesglose.setOnClickListener {
             if (binding.layoutDesglose.visibility == View.GONE) {
                 binding.layoutDesglose.visibility = View.VISIBLE
-                binding.tvToggleDesglose.text = "Ocultar ▴"
+                binding.tvToggleDesglose.text = getString(R.string.btn_ocultar_desglose)
             } else {
                 binding.layoutDesglose.visibility = View.GONE
-                binding.tvToggleDesglose.text = "Ver desglose ▾"
+                binding.tvToggleDesglose.text = getString(R.string.btn_ver_desglose)
             }
         }
 
@@ -80,7 +80,7 @@ class AddFragment : Fragment() {
                 is AuthState.Loading -> binding.btnAgregarCita.isEnabled = false
                 is AuthState.Success -> {
                     binding.btnAgregarCita.isEnabled = true
-                    Toast.makeText(requireContext(), "Cita añadida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.msg_cita_anadida), Toast.LENGTH_SHORT).show()
                     resetFormulario()
                 }
                 is AuthState.Error -> {
@@ -96,27 +96,28 @@ class AddFragment : Fragment() {
             val serviciosIds  = binding.chipGroupServicios.checkedChipIds
 
             if (fecha == null) {
-                Toast.makeText(requireContext(), "Selecciona una fecha", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_selecciona_fecha), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (horaChip == View.NO_ID) {
-                Toast.makeText(requireContext(), "Selecciona una hora", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_selecciona_hora), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (serviciosIds.isEmpty()) {
-                Toast.makeText(requireContext(), "Selecciona al menos un servicio", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_selecciona_servicio), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val hora      = binding.chipGroupHoras.findViewById<Chip>(horaChip).text.toString()
-            val servicios = serviciosIds.map { id ->
-                binding.chipGroupServicios.findViewById<Chip>(id).text.toString()
+            val hora     = binding.chipGroupHoras.findViewById<Chip>(horaChip).text.toString()
+            // Recuperar resIds guardados en chip.tag para calcular precio
+            val resIds   = serviciosIds.map { id ->
+                (binding.chipGroupServicios.findViewById<Chip>(id).tag as? Int) ?: 0
             }
-            val servicio  = servicios.joinToString(" + ")
-            val precio    = "${servicios.sumOf { BarberiaData.servicios[it] ?: 0 }}€"
+            val servicio = resIds.joinToString("||") { resources.getResourceEntryName(it) }
+            val precio   = "${resIds.sumOf { BarberiaData.servicios[it] ?: 0 }}€"
 
             val userId = authViewModel.getCurrentUser()?.uid ?: run {
-                Toast.makeText(requireContext(), "Error: sesión no iniciada", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_sesion), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             citaViewModel.insertar(
@@ -138,7 +139,7 @@ class AddFragment : Fragment() {
         binding.cardHoras.visibility = View.GONE
         binding.cardResumen.visibility = View.GONE
         binding.layoutDesglose.visibility = View.GONE
-        binding.tvToggleDesglose.text = "Ver desglose ▾"
+        binding.tvToggleDesglose.text = getString(R.string.btn_ver_desglose)
     }
 
     private fun cargarHoras(diaSemana: Int) {
@@ -146,12 +147,12 @@ class AddFragment : Fragment() {
 
         if (diaSemana == Calendar.SUNDAY) {
             binding.cardHoras.visibility = View.GONE
-            Toast.makeText(requireContext(), "La barbería está cerrada los domingos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.barberia_cerrada_domingos), Toast.LENGTH_SHORT).show()
             return
         }
 
         val horasBase = BarberiaData.horasPorDia(diaSemana) ?: run {
-            Toast.makeText(requireContext(), "La barbería está cerrada los domingos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.barberia_cerrada_domingos), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -159,7 +160,7 @@ class AddFragment : Fragment() {
 
         if (horasFiltradas.isEmpty()) {
             binding.cardHoras.visibility = View.GONE
-            Toast.makeText(requireContext(), "No hay horas disponibles para hoy", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.sin_horas_disponibles), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -215,12 +216,13 @@ class AddFragment : Fragment() {
         }
     }
 
-    private fun cargarServicios(servicios: List<String>) {
+    private fun cargarServicios(servicioResIds: List<Int>) {
         binding.chipGroupServicios.removeAllViews()
 
-        servicios.forEach { servicio ->
+        servicioResIds.forEach { resId ->
             val chip = Chip(requireContext()).apply {
-                text = servicio
+                tag  = resId                    // ← clave para precio y lookup
+                text = getString(resId)         // ← texto localizado
                 isCheckable = true
                 isClickable = true
                 layoutParams = ViewGroup.MarginLayoutParams(
@@ -249,18 +251,20 @@ class AddFragment : Fragment() {
             return
         }
 
-        val servicios = ids.map { id ->
-            binding.chipGroupServicios.findViewById<Chip>(id).text.toString()
+        // resId guardado en chip.tag → clave en BarberiaData.servicios
+        val resIds = ids.map { chipId ->
+            (binding.chipGroupServicios.findViewById<Chip>(chipId).tag as? Int) ?: 0
         }
-        val total = servicios.sumOf { BarberiaData.servicios[it] ?: 0 }
+        val total = resIds.sumOf { BarberiaData.servicios[it] ?: 0 }
 
         binding.cardResumen.visibility = View.VISIBLE
         binding.tvPrecioTotal.text = "${total}€"
 
         // Actualizar filas del desglose
         binding.contenedorDesglose.removeAllViews()
-        servicios.forEach { servicio ->
-            val precio = BarberiaData.servicios[servicio] ?: 0
+        resIds.forEach { resId ->
+            val precio         = BarberiaData.servicios[resId] ?: 0
+            val nombreLocalizado = getString(resId)
             val fila = android.widget.LinearLayout(requireContext()).apply {
                 orientation = android.widget.LinearLayout.HORIZONTAL
                 layoutParams = ViewGroup.LayoutParams(
@@ -270,7 +274,7 @@ class AddFragment : Fragment() {
                 setPadding(0, 4, 0, 4)
             }
             val tvNombre = android.widget.TextView(requireContext()).apply {
-                text = servicio
+                text = nombreLocalizado
                 textSize = 13f
                 setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary_light))
                 layoutParams = android.widget.LinearLayout.LayoutParams(

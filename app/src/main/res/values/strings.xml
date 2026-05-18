@@ -1,5 +1,114 @@
 <resources>
+
+    <!-- ── App ──────────────────────────────────────────────────── -->
     <string name="NombreApp">VadaBarber</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- ── Menú inferior ────────────────────────────────────────── -->
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_nueva_cita">Nueva cita</string>
+    <string name="nav_perfil">Perfil</string>
+
+    <!-- ── Login ─────────────────────────────────────────────────── -->
+    <string name="titulo_login">INICIAR SESIÓN</string>
+    <string name="lbl_correo">Correo electrónico</string>
+    <string name="hint_correo">Correo electrónico...</string>
+    <string name="lbl_contrasena">Contraseña</string>
+    <string name="hint_contrasena">Contraseña...</string>
+    <string name="lbl_recordar">Recordar usuario</string>
+    <string name="btn_login">INICIAR SESIÓN</string>
+    <string name="sin_cuenta">¿No tienes cuenta?&#160;&#160;</string>
+    <string name="lnk_registrate">Regístrate</string>
+
+    <!-- ── Registro ───────────────────────────────────────────────── -->
+    <string name="titulo_registro">CREAR CUENTA</string>
+    <string name="lbl_nombre">Nombre de usuario</string>
+    <string name="hint_nombre">Nombre de usuario...</string>
+    <string name="ya_cuenta">¿Ya tienes cuenta?&#160;&#160;</string>
+    <string name="lnk_iniciar_sesion">Iniciar sesión</string>
+    <string name="btn_registro">REGISTRARSE</string>
+
+    <!-- ── Errores auth ───────────────────────────────────────────── -->
+    <string name="error_campos">Completa todos los campos</string>
+    <string name="error_desconocido">Error desconocido</string>
+
+    <!-- ── Home ──────────────────────────────────────────────────── -->
+    <string name="bienvenida">¡Bienvenido %s!</string>
+    <string name="btn_ver_horario">VER HORARIO</string>
+    <string name="btn_ocultar_horario">OCULTAR HORARIO</string>
+    <string name="titulo_horario">HORARIO</string>
+    <string name="abierto_ahora">Abierto ahora</string>
+    <string name="cerrado">CERRADO</string>
+    <string name="titulo_citas_pendientes">CITAS PENDIENTES</string>
+    <string name="sin_citas_proximas">No tienes citas próximas</string>
+    <string name="sin_citas_mensaje">No tienes citas pendientes.\n¡Agenda una pulsando aquí!</string>
+    <string name="parte_agenda">¡Agenda una pulsando aquí!</string>
+    <string name="titulo_novedades">NOVEDADES</string>
+    <string name="noticia1_titulo">Nueva colección primavera 2026</string>
+    <string name="noticia1_cuerpo">Descubre los cortes más tendencia de la temporada, ya disponibles en el local.</string>
+    <string name="noticia1_fecha">15 Abr 2026</string>
+    <string name="noticia2_titulo">Ampliamos horario en mayo</string>
+    <string name="noticia2_cuerpo">A partir del 1 de mayo abriremos también los domingos de 10:00 a 14:00.</string>
+    <string name="noticia2_fecha">01 May 2026</string>
+    <string name="titulo_nuestros_cortes">NUESTROS CORTES</string>
+    <string name="desliza_ver_mas">Desliza para ver más →</string>
+    <string name="titulo_servicios_populares">SERVICIOS POPULARES</string>
+    <string name="titulo_contacto">CONTACTO</string>
+    <string name="btn_llamar">Llamar</string>
+    <string name="btn_como_llegar">Cómo llegar</string>
+
+    <!-- ── Cuenta atrás citas ─────────────────────────────────────── -->
+    <string name="countdown_menos_1h">En menos de 1h</string>
+    <string name="countdown_horas">En ~%dh</string>
+    <string name="countdown_manana">Mañana</string>
+    <string name="countdown_dias">En %d días</string>
+
+    <!-- ── Añadir cita ────────────────────────────────────────────── -->
+    <string name="titulo_pedir_cita">PEDIR CITA</string>
+    <string name="titulo_horas_disponibles">HORAS DISPONIBLES</string>
+    <string name="titulo_servicios_max">SERVICIOS (máx. 2)</string>
+    <string name="lbl_total">TOTAL</string>
+    <string name="btn_ver_desglose">Ver desglose ▾</string>
+    <string name="btn_ocultar_desglose">Ocultar ▴</string>
+    <string name="btn_agregar_cita">Agregar cita</string>
+    <string name="error_selecciona_fecha">Selecciona una fecha</string>
+    <string name="error_selecciona_hora">Selecciona una hora</string>
+    <string name="error_selecciona_servicio">Selecciona al menos un servicio</string>
+    <string name="msg_cita_anadida">Cita añadida</string>
+    <string name="error_sesion">Error: sesión no iniciada</string>
+    <string name="barberia_cerrada_domingos">La barbería está cerrada los domingos</string>
+    <string name="sin_horas_disponibles">No hay horas disponibles para hoy</string>
+
+    <!-- ── Perfil ─────────────────────────────────────────────────── -->
+    <string name="titulo_historial">HISTORIAL DE CITAS</string>
+    <string name="btn_cerrar_sesion">Cerrar sesión</string>
+    <string name="btn_idioma">Idioma</string>
+    <string name="titulo_selector_idioma">Selecciona idioma</string>
+    <string name="idioma_es">🇪🇸  Español</string>
+    <string name="idioma_en">🇬🇧  English</string>
+    <string name="idioma_fr">🇫🇷  Français</string>
+    <string name="msg_cerrar_sesion_titulo">Cerrar sesión</string>
+    <string name="msg_cerrar_sesion_mensaje">¿Estás seguro de que quieres cerrar sesión?</string>
+    <string name="btn_si">Sí</string>
+    <string name="btn_cancelar">Cancelar</string>
+
+    <!-- ── Días del horario ─────────────────────────────────────────── -->
+    <string name="horario_lunes_viernes">Lunes — Viernes</string>
+    <string name="horario_sabado">Sábado</string>
+    <string name="horario_domingo">Domingo</string>
+
+    <!-- ── Servicios ─────────────────────────────────────────────────── -->
+    <string name="servicio_corte_clasico">Corte clásico</string>
+    <string name="servicio_fade">Fade / Degradado</string>
+    <string name="servicio_barba">Arreglo de barba</string>
+    <string name="servicio_perfilado">Perfilado</string>
+    <string name="servicio_corte_barba">Corte + Barba</string>
+    <string name="servicio_afeitado">Afeitado navaja</string>
+    <string name="servicio_diseno_barba">Diseño de barba</string>
+    <string name="servicio_cejas">Cejas</string>
+
+    <!-- ── Notificaciones ─────────────────────────────────────────── -->
+    <string name="notif_titulo_24h">¡Cita mañana!</string>
+    <string name="notif_titulo_1h">Tu cita empieza en 1 hora</string>
+    <string name="notif_mensaje">%1$s · %2$s a las %3$s</string>
+
 </resources>
