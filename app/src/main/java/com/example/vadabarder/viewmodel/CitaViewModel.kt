@@ -37,7 +37,9 @@ class CitaViewModel(application: Application) : AndroidViewModel(application) {
     private val _insertState = MutableLiveData<AuthState<Unit>?>()
     val insertState: LiveData<AuthState<Unit>?> get() = _insertState
 
-    fun setUsuario(userId: String) { _userId.value = userId }
+    fun setUsuario(userId: String) {
+        if (_userId.value != userId) _userId.value = userId
+    }
 
     fun consultarHorasDe(fecha: String) { _fechaConsulta.value = fecha }
 
