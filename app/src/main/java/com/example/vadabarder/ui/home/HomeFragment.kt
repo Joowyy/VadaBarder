@@ -78,17 +78,20 @@ class HomeFragment : Fragment() {
 
         binding.btnLlamar.setOnClickListener {
             val intent = android.content.Intent(android.content.Intent.ACTION_DIAL)
-            intent.data = android.net.Uri.parse("tel:+34123456789")
+            intent.data = android.net.Uri.parse("tel:${BarberiaData.TELEFONO}")
             startActivity(intent)
         }
 
         binding.btnMapa.setOnClickListener {
-            val intent = android.content.Intent(
-                android.content.Intent.ACTION_VIEW,
-                android.net.Uri.parse("geo:0,0?q=Calle+Ejemplo+123,+Ciudad,+España")
-            )
-            intent.setPackage("com.google.android.apps.maps")
-            startActivity(intent)
+            val uri = android.net.Uri.parse("geo:0,0?q=${BarberiaData.DIRECCION_MAPS}")
+            val mapsIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, uri).apply {
+                setPackage("com.google.android.apps.maps")
+            }
+            if (mapsIntent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(mapsIntent)
+            } else {
+                startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, uri))
+            }
         }
 
         construirHorario()
