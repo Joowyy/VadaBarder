@@ -6,6 +6,11 @@ import java.util.Calendar
 
 object BarberiaData {
 
+    // ── Contacto ──────────────────────────────────────────────────────────
+    const val TELEFONO       = "+34123456789"
+    const val DIRECCION      = "Calle Ejemplo 123, Ciudad"
+    const val DIRECCION_MAPS = "Calle+Ejemplo+123,+Ciudad"
+
     // ── Servicios ─────────────────────────────────────────────────────────
     // Clave: R.string.servicio_*  →  Valor: precio en €
     val servicios = linkedMapOf(

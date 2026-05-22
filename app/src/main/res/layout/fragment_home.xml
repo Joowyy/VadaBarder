@@ -323,124 +323,238 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ═══ NUESTROS CORTES (carousel) ═════════════════════════════ -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardGaleria"
+        <!-- ═══ NUESTROS CORTES (galería) ══════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/seccionGaleria"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/card_subtle"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="28dp"
             app:layout_constraintTop_toBottomOf="@id/cardNovedades"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
+            <!-- Header estilo CONTACTO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_nuestros_cortes"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!-- Carousel horizontal -->
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp">
+                android:scrollbars="none"
+                android:layout_marginTop="18dp"
+                android:paddingHorizontal="16dp">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/titulo_nuestros_cortes"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:letterSpacing="0.12"
-                    android:fontFamily="@font/grotesk"
-                    android:gravity="center"
-                    android:textColor="@color/text_primary_light"
-                    android:paddingHorizontal="18dp"
-                    android:layout_marginBottom="14dp"/>
+                    android:orientation="horizontal">
 
-                <!-- Carousel horizontal -->
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    android:paddingHorizontal="12dp">
-
+                    <!-- Corte Clásico -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="125dp"
-                            android:layout_height="168dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/corte1"
+                            android:src="@drawable/haircut_clasico"
                             app:shapeAppearanceOverlay="@style/gallery_img"
                             app:strokeWidth="0dp"/>
 
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="125dp"
-                            android:layout_height="168dp"
-                            android:layout_marginEnd="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/corte2"
-                            app:shapeAppearanceOverlay="@style/gallery_img"
-                            app:strokeWidth="0dp"/>
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="125dp"
-                            android:layout_height="168dp"
-                            android:layout_marginEnd="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/corte3"
-                            app:shapeAppearanceOverlay="@style/gallery_img"
-                            app:strokeWidth="0dp"/>
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="125dp"
-                            android:layout_height="168dp"
-                            android:layout_marginEnd="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/corte1"
-                            app:shapeAppearanceOverlay="@style/gallery_img"
-                            app:strokeWidth="0dp"/>
-
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:layout_width="125dp"
-                            android:layout_height="168dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/corte2"
-                            app:shapeAppearanceOverlay="@style/gallery_img"
-                            app:strokeWidth="0dp"/>
-
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_corte_clasico"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
                     </LinearLayout>
-                </HorizontalScrollView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/desliza_ver_mas"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_secondary_light"
-                    android:gravity="end"
-                    android:paddingHorizontal="18dp"
-                    android:layout_marginTop="8dp"/>
+                    <!-- Fade / Degradado -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_fade"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_fade"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Arreglo de barba -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_barba"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_barba"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Perfilado -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_perfilado"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_perfilado"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Afeitado navaja -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_navaja"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_afeitado"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Diseño de barba -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_diseno"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_diseno_barba"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/desliza_ver_mas"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary_light"
+                android:gravity="end"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"/>
+
+        </LinearLayout>
 
         <!-- ═══ SERVICIOS POPULARES ══════════════════════════════════════ -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardServicios"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="24dp"
             android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             app:cardBackgroundColor="@color/purple_50"
-            app:layout_constraintTop_toBottomOf="@id/cardGaleria"
+            app:layout_constraintTop_toBottomOf="@id/seccionGaleria"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 

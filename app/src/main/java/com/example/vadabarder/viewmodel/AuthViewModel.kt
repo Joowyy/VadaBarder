@@ -33,14 +33,24 @@ class AuthViewModel : ViewModel() {
         auth.addAuthStateListener(authStateListener)
     }
 
+    // ── Validaciones ──────────────────────────────────────────────────────
+    private fun isValidEmail(email: String): Boolean =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
+    private fun isValidPassword(password: String): Boolean = password.length >= 6
+
     // ── Operaciones de auth ───────────────────────────────────────────────
     fun login(email: String, password: String) {
         if (email.isBlank() || password.isBlank()) {
             _authState.value = AuthState.Error("Completa todos los campos")
             return
         }
+        if (!isValidEmail(email.trim())) {
+            _authState.value = AuthState.Error("El formato del correo no es válido")
+            return
+        }
         _authState.value = AuthState.Loading
-        repository.login(email, password) { user, error ->
+        repository.login(email.trim(), password) { user, error ->
             _authState.value = if (user != null) AuthState.Success(user)
                                else AuthState.Error(error ?: "Error desconocido")
         }
@@ -51,8 +61,16 @@ class AuthViewModel : ViewModel() {
             _authState.value = AuthState.Error("Completa todos los campos")
             return
         }
+        if (!isValidEmail(email.trim())) {
+            _authState.value = AuthState.Error("El formato del correo no es válido")
+            return
+        }
+        if (!isValidPassword(password)) {
+            _authState.value = AuthState.Error("La contraseña debe tener al menos 6 caracteres")
+            return
+        }
         _authState.value = AuthState.Loading
-        repository.registrar(email, password) { user, error ->
+        repository.registrar(email.trim(), password) { user, error ->
             if (user != null) {
                 val updates = UserProfileChangeRequest.Builder()
                     .setDisplayName(nombre)

@@ -75,6 +75,8 @@
     <string name="error_selecciona_servicio">Sélectionnez au moins un service</string>
     <string name="msg_cita_anadida">Rendez-vous pris</string>
     <string name="error_sesion">Erreur : session non démarrée</string>
+    <string name="error_sin_conexion">Pas de connexion internet. Connectez-vous pour réserver.</string>
+    <string name="error_sin_conexion_login">Pas de connexion. Internet requis pour se connecter.</string>
     <string name="barberia_cerrada_domingos">La barberie est fermée le dimanche</string>
     <string name="sin_horas_disponibles">Aucun horaire disponible pour aujourd\'hui</string>
 
