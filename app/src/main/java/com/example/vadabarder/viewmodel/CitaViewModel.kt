@@ -56,7 +56,13 @@ class CitaViewModel(application: Application) : AndroidViewModel(application) {
                 programarRecordatorios(cita)
                 _insertState.value = AuthState.Success(Unit)
             } else {
-                _insertState.value = AuthState.Error(error ?: "Error al guardar la cita")
+                val mensaje = if (error != null &&
+                    (error.contains("Unable to resolve host") || error.contains("Unresolved host"))) {
+                    "Sin conexión. La cita se guardará cuando tengas internet."
+                } else {
+                    error ?: "Error al guardar la cita"
+                }
+                _insertState.value = AuthState.Error(mensaje)
             }
         }
     }

@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.vadabarder.R
 import com.example.vadabarder.data.prefs.SessionPreferences
+import com.example.vadabarder.data.repository.FirestoreConfig
 import com.example.vadabarder.databinding.MainLayoutBinding
 import com.example.vadabarder.notifications.NotificationHelper
 import com.example.vadabarder.utils.LocaleHelper
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirestoreConfig.configurarOffline()
 
         // Si el usuario no marcó "Recordar", forzamos signOut antes de inflar la UI
         // para que LoginFragment vea getCurrentUser() == null y no auto-redirija.

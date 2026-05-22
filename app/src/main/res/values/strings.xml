@@ -75,6 +75,8 @@
     <string name="error_selecciona_servicio">Selecciona al menos un servicio</string>
     <string name="msg_cita_anadida">Cita añadida</string>
     <string name="error_sesion">Error: sesión no iniciada</string>
+    <string name="error_sin_conexion">Sin conexión a internet. Conéctate para reservar una cita.</string>
+    <string name="error_sin_conexion_login">Sin conexión. Necesitas internet para iniciar sesión.</string>
     <string name="barberia_cerrada_domingos">La barbería está cerrada los domingos</string>
     <string name="sin_horas_disponibles">No hay horas disponibles para hoy</string>
 

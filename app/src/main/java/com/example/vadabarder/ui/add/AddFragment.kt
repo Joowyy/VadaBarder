@@ -1,5 +1,8 @@
 package com.example.vadabarder.ui.add
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -91,6 +94,10 @@ class AddFragment : Fragment() {
         }
 
         binding.btnAgregarCita.setOnClickListener {
+            if (!hayConexion(requireContext())) {
+                Toast.makeText(requireContext(), getString(R.string.error_sin_conexion), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             val fecha         = fechaSeleccionada
             val horaChip      = binding.chipGroupHoras.checkedChipId
             val serviciosIds  = binding.chipGroupServicios.checkedChipIds
@@ -291,6 +298,13 @@ class AddFragment : Fragment() {
             fila.addView(tvPrecio)
             binding.contenedorDesglose.addView(fila)
         }
+    }
+
+    private fun hayConexion(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork ?: return false
+        val caps = cm.getNetworkCapabilities(network) ?: return false
+        return caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     // Memory Leaks — onDestroyView (no onDestroy) para liberar el binding

@@ -75,6 +75,8 @@
     <string name="error_selecciona_servicio">Select at least one service</string>
     <string name="msg_cita_anadida">Appointment booked</string>
     <string name="error_sesion">Error: not logged in</string>
+    <string name="error_sin_conexion">No internet connection. Connect to book an appointment.</string>
+    <string name="error_sin_conexion_login">No connection. You need internet to sign in.</string>
     <string name="barberia_cerrada_domingos">The barbershop is closed on Sundays</string>
     <string name="sin_horas_disponibles">No available times for today</string>
 

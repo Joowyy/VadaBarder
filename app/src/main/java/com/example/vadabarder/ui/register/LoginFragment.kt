@@ -1,6 +1,9 @@
 package com.example.vadabarder.ui.register
 
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,6 +59,10 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
+            if (!hayConexion(requireContext())) {
+                Toast.makeText(requireContext(), getString(R.string.error_sin_conexion_login), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             val correo = binding.editTextCorreo.text.toString().trim()
             val psswd  = binding.editTextPsswd.text.toString()
             SessionPreferences.setRecordar(requireContext(), binding.cbRecordar.isChecked)
@@ -65,6 +72,13 @@ class LoginFragment : Fragment() {
         binding.camRegistro.setOnClickListener {
             findNavController(view).navigate(R.id.registroFragment)
         }
+    }
+
+    private fun hayConexion(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork ?: return false
+        val caps = cm.getNetworkCapabilities(network) ?: return false
+        return caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     private fun animarLogo(logo: ImageView) {

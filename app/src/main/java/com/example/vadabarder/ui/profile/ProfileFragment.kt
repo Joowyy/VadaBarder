@@ -59,12 +59,12 @@ class ProfileFragment : Fragment() {
             user?.uid?.let { uid -> citaViewModel.setUsuario(uid) }
         }
 
-        adapter = HistorialAdapter(emptyList())
+        adapter = HistorialAdapter()
         binding.rvHistorial.adapter = adapter
         binding.rvHistorial.layoutManager = LinearLayoutManager(requireContext())
 
         citaViewModel.citas.observe(viewLifecycleOwner) { citas ->
-            adapter.actualizarCitas(citas)
+            adapter.submitList(citas)
             val pendientes = citas.filter { esFutura(it) }
             actualizarCitasPendientesPerfil(pendientes)
         }
