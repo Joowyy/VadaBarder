@@ -13,58 +13,61 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- VADABARBER -->
         <TextView
             android:id="@+id/textView"
+            style="@style/VadaBarber.AppTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
-            android:fontFamily="@font/roboto"
             android:text="@string/NombreApp"
-            android:textAllCaps="true"
-            android:textSize="62sp"
-            android:textStyle="bold"
-
-            android:shadowColor="#80000000"
-            android:shadowRadius="6"
-            android:shadowDx="3"
-            android:shadowDy="3"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TITULO -->
-        <TextView
-            android:id="@+id/tituloCita"
+        <!-- PEDIR CITA header + acento -->
+        <LinearLayout
+            android:id="@+id/headerPedirCita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pedir cita"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:background="@drawable/bg_titulos"
-            android:layout_marginTop="8dp"
-
-            android:shadowColor="#40000000"
-            android:shadowRadius="3"
-            android:shadowDx="1"
-            android:shadowDy="2"
-
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="4dp"
             app:layout_constraintTop_toBottomOf="@id/textView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tituloCita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_pedir_cita"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"/>
+
+            <View
+                android:layout_width="48dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
 
         <!-- CALENDARIO -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="14dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloCita">
+            app:layout_constraintTop_toBottomOf="@id/headerPedirCita">
 
             <CalendarView
                 android:id="@+id/calendarView"
@@ -72,181 +75,193 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- TEXTO HORAS -->
-        <TextView
-            android:id="@+id/textHoras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_titulos"
-            android:text="Horas disponibles"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-
-            android:shadowColor="#40000000"
-            android:shadowRadius="3"
-            android:shadowDx="1"
-            android:shadowDy="2"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
-
-
-        <!-- LISTA DE HORAS -->
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupHoras"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:singleSelection="true"
-            android:layout_marginTop="6dp"
-            app:chipSpacing="12dp"
-            app:layout_constraintTop_toBottomOf="@id/textHoras"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <!-- TEXTO SERVICIOS -->
-        <TextView
-            android:id="@+id/textServicios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Servicio"
-            android:textStyle="bold"
-            android:textSize="28sp"
-            android:textColor="@color/black"
-            android:background="@drawable/bg_titulos"
-            android:layout_marginTop="14dp"
-
-            android:shadowColor="#40000000"
-            android:shadowRadius="3"
-            android:shadowDx="1"
-            android:shadowDy="2"
-
-            app:layout_constraintTop_toBottomOf="@id/chipGroupHoras"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- SERVICIOS -->
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupServicios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:singleSelection="true"
-            android:layout_marginTop="6dp"
-            app:chipSpacing="12dp"
-            app:layout_constraintTop_toBottomOf="@id/textServicios"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <!-- TEXTO PRECIOS -->
-        <TextView
-            android:id="@+id/textPrecios"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precios"
-            android:textStyle="bold"
-            android:textSize="28sp"
-            android:textColor="@color/black"
-            android:background="@drawable/bg_titulos"
-            android:layout_marginTop="14dp"
-
-            android:shadowColor="#40000000"
-            android:shadowRadius="3"
-            android:shadowDx="1"
-            android:shadowDy="2"
-
-            app:layout_constraintTop_toBottomOf="@id/chipGroupServicios"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+        <!-- HORAS (oculto hasta seleccionar fecha) -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardPrecios"
+            android:id="@+id/cardHoras"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:layout_constraintTop_toBottomOf="@id/textPrecios"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/materialCardView">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Corte clásico · 12€"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:text="@string/titulo_horas_disponibles"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:letterSpacing="0.08"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/text_primary_light"
+                    android:layout_marginBottom="10dp"/>
 
-                <TextView
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupHoras"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Barba · 8€"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Corte + Barba · 18€"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fade · 8€"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:gravity="center"/>
+                    app:singleSelection="true"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="6dp"/>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- SERVICIOS -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/btnAgregarCita"
+            android:id="@+id/cardServicios"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="12dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:layout_constraintTop_toBottomOf="@id/cardPrecios"
-            app:layout_constraintStart_toStartOf="parent"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:clickable="true"
-            android:focusable="true">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardHoras">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar cita"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="16dp"
-                android:background="@drawable/dw_btncita"/>
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo_servicios_max"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/text_primary_light"
+                    android:layout_marginBottom="10dp"/>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupServicios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="false"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="6dp"/>
+
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- RESUMEN DE PRECIO (visible al seleccionar servicios) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardResumen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/purple_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardServicios">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Fila: TOTAL + precio -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lbl_total"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08"
+                        android:fontFamily="@font/grotesk"
+                        android:textColor="@color/text_primary_light"/>
+
+                    <TextView
+                        android:id="@+id/tvPrecioTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0€"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/grotesk"
+                        android:textColor="@color/deep_purple_500"/>
+
+                </LinearLayout>
+
+                <!-- Toggle desglose -->
+                <TextView
+                    android:id="@+id/tvToggleDesglose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_ver_desglose"
+                    android:textSize="12sp"
+                    android:textColor="@color/deep_purple_500"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <!-- Desglose expandible -->
+                <LinearLayout
+                    android:id="@+id/layoutDesglose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/purple_300"
+                        android:alpha="0.4"
+                        android:layout_marginBottom="10dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/contenedorDesglose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- AGREGAR CITA -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAgregarCita"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:text="@string/btn_agregar_cita"
+            app:layout_constraintTop_toBottomOf="@id/cardResumen"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

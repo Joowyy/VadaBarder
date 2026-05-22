@@ -1,0 +1,116 @@
+<resources>
+
+    <!-- ── App ──────────────────────────────────────────────────── -->
+    <string name="NombreApp">VadaBarber</string>
+
+    <!-- ── Bottom nav ────────────────────────────────────────────── -->
+    <string name="nav_inicio">Home</string>
+    <string name="nav_nueva_cita">New appointment</string>
+    <string name="nav_perfil">Profile</string>
+
+    <!-- ── Login ─────────────────────────────────────────────────── -->
+    <string name="titulo_login">SIGN IN</string>
+    <string name="lbl_correo">Email address</string>
+    <string name="hint_correo">Email address...</string>
+    <string name="lbl_contrasena">Password</string>
+    <string name="hint_contrasena">Password...</string>
+    <string name="lbl_recordar">Remember me</string>
+    <string name="btn_login">SIGN IN</string>
+    <string name="sin_cuenta">Don\'t have an account?&#160;&#160;</string>
+    <string name="lnk_registrate">Sign up</string>
+
+    <!-- ── Register ───────────────────────────────────────────────── -->
+    <string name="titulo_registro">CREATE ACCOUNT</string>
+    <string name="lbl_nombre">Username</string>
+    <string name="hint_nombre">Username...</string>
+    <string name="ya_cuenta">Already have an account?&#160;&#160;</string>
+    <string name="lnk_iniciar_sesion">Sign in</string>
+    <string name="btn_registro">SIGN UP</string>
+
+    <!-- ── Auth errors ─────────────────────────────────────────────── -->
+    <string name="error_campos">Please fill in all fields</string>
+    <string name="error_desconocido">Unknown error</string>
+
+    <!-- ── Home ──────────────────────────────────────────────────── -->
+    <string name="bienvenida">Welcome %s!</string>
+    <string name="btn_ver_horario">VIEW SCHEDULE</string>
+    <string name="btn_ocultar_horario">HIDE SCHEDULE</string>
+    <string name="titulo_horario">SCHEDULE</string>
+    <string name="abierto_ahora">Open now</string>
+    <string name="cerrado">CLOSED</string>
+    <string name="titulo_citas_pendientes">UPCOMING APPOINTMENTS</string>
+    <string name="sin_citas_proximas">No upcoming appointments</string>
+    <string name="sin_citas_mensaje">You have no pending appointments.\nBook one by tapping here!</string>
+    <string name="parte_agenda">Book one by tapping here!</string>
+    <string name="titulo_novedades">NEWS</string>
+    <string name="noticia1_titulo">New spring 2026 collection</string>
+    <string name="noticia1_cuerpo">Discover the trendiest cuts of the season, now available in our shop.</string>
+    <string name="noticia1_fecha">Apr 15, 2026</string>
+    <string name="noticia2_titulo">Extended hours in May</string>
+    <string name="noticia2_cuerpo">From May 1st we will also be open on Sundays from 10:00 to 14:00.</string>
+    <string name="noticia2_fecha">May 1, 2026</string>
+    <string name="titulo_nuestros_cortes">OUR CUTS</string>
+    <string name="desliza_ver_mas">Swipe for more →</string>
+    <string name="titulo_servicios_populares">POPULAR SERVICES</string>
+    <string name="titulo_contacto">CONTACT</string>
+    <string name="btn_llamar">Call</string>
+    <string name="btn_como_llegar">Get directions</string>
+
+    <!-- ── Appointment countdown ──────────────────────────────────── -->
+    <string name="countdown_menos_1h">In less than 1h</string>
+    <string name="countdown_horas">In ~%dh</string>
+    <string name="countdown_manana">Tomorrow</string>
+    <string name="countdown_dias">In %d days</string>
+
+    <!-- ── Add appointment ────────────────────────────────────────── -->
+    <string name="titulo_pedir_cita">BOOK APPOINTMENT</string>
+    <string name="titulo_horas_disponibles">AVAILABLE TIMES</string>
+    <string name="titulo_servicios_max">SERVICES (max. 2)</string>
+    <string name="lbl_total">TOTAL</string>
+    <string name="btn_ver_desglose">View details ▾</string>
+    <string name="btn_ocultar_desglose">Hide ▴</string>
+    <string name="btn_agregar_cita">Book appointment</string>
+    <string name="error_selecciona_fecha">Select a date</string>
+    <string name="error_selecciona_hora">Select a time</string>
+    <string name="error_selecciona_servicio">Select at least one service</string>
+    <string name="msg_cita_anadida">Appointment booked</string>
+    <string name="error_sesion">Error: not logged in</string>
+    <string name="error_sin_conexion">No internet connection. Connect to book an appointment.</string>
+    <string name="error_sin_conexion_login">No connection. You need internet to sign in.</string>
+    <string name="barberia_cerrada_domingos">The barbershop is closed on Sundays</string>
+    <string name="sin_horas_disponibles">No available times for today</string>
+
+    <!-- ── Profile ────────────────────────────────────────────────── -->
+    <string name="titulo_historial">APPOINTMENT HISTORY</string>
+    <string name="btn_cerrar_sesion">Sign out</string>
+    <string name="btn_idioma">Language</string>
+    <string name="titulo_selector_idioma">Select language</string>
+    <string name="idioma_es">🇪🇸  Español</string>
+    <string name="idioma_en">🇬🇧  English</string>
+    <string name="idioma_fr">🇫🇷  Français</string>
+    <string name="msg_cerrar_sesion_titulo">Sign out</string>
+    <string name="msg_cerrar_sesion_mensaje">Are you sure you want to sign out?</string>
+    <string name="btn_si">Yes</string>
+    <string name="btn_cancelar">Cancel</string>
+
+    <!-- ── Schedule days ────────────────────────────────────────────── -->
+    <string name="horario_lunes_viernes">Mon — Fri</string>
+    <string name="horario_sabado">Saturday</string>
+    <string name="horario_domingo">Sunday</string>
+
+    <!-- ── Services ──────────────────────────────────────────────────── -->
+    <string name="servicio_corte_clasico">Classic Cut</string>
+    <string name="servicio_fade">Fade</string>
+    <string name="servicio_barba">Beard Trim</string>
+    <string name="servicio_perfilado">Outline</string>
+    <string name="servicio_corte_barba">Cut + Beard</string>
+    <string name="servicio_afeitado">Straight Razor Shave</string>
+    <string name="servicio_diseno_barba">Beard Design</string>
+    <string name="servicio_cejas">Eyebrow Trim</string>
+
+    <!-- ── Notifications ──────────────────────────────────────────── -->
+    <string name="notif_titulo_24h">Appointment tomorrow!</string>
+    <string name="notif_titulo_1h">Your appointment starts in 1 hour</string>
+    <string name="notif_mensaje">%1$s · %2$s at %3$s</string>
+
+</resources>

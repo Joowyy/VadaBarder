@@ -1,104 +1,106 @@
 package com.example.vadabarder.ui.register
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.OvershootInterpolator
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation.findNavController
 import com.example.vadabarder.R
+import com.example.vadabarder.data.model.AuthState
+import com.example.vadabarder.data.prefs.SessionPreferences
 import com.example.vadabarder.databinding.FragmentRegistroBinding
-import com.example.vadabarder.viewmodel.UserViewModel
+import com.example.vadabarder.viewmodel.AuthViewModel
 
 class RegistroFragment : Fragment() {
 
-    private var _binding : FragmentRegistroBinding? = null
+    private var _binding: FragmentRegistroBinding? = null
     private val binding get() = _binding!!
-    private val userViewModel : UserViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-
-        }
-
-    }
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = FragmentRegistroBinding.inflate(layoutInflater)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Pulsar boton de login
-        binding.btnRegistro.setOnClickListener {
+        // Si ya hay sesión activa, saltar directamente a Home
+        if (authViewModel.getCurrentUser() != null) {
+            findNavController(view).navigate(R.id.action_registroFragment_to_homeFragment)
+            return
+        }
 
-            // Obtenemos valores
-            val user = binding.editTextNombre.text.toString()
-            val correo = binding.editTextCorreo.text.toString()
-            val psswd = binding.editTextPsswd.text.toString()
+        animarLogo(binding.imgLogo)
 
-            // Comprueba y mensaje de error
-            if (psswd.isEmpty() || correo.isEmpty() || user.isEmpty()) {
+        // Reflejar el último estado guardado en la checkbox
+        binding.cbRecordar.isChecked = SessionPreferences.isRecordar(requireContext())
 
-                if (user.isEmpty()) {
-
-                    binding.editTextNombre.error = "Campo obligatorio"
-
-                }
-
-                if (correo.isEmpty()) {
-
-                    binding.editTextCorreo.error = "Campo obligatorio"
-
-                }
-
-                if (psswd.isEmpty()) {
-
-                    binding.editTextPsswd.error = "Campo obligatorio"
-
-                }
-
-                Toast.makeText(requireContext(), "Completa los campos obligatorios", Toast.LENGTH_SHORT).show()
-
-            } else {
-
-                userViewModel.user = user
-                userViewModel.correo = correo
-
-                // Navega
-                var navController = findNavController(view)
-                navController.navigate(R.id.action_registroFragment_to_homeFragment)
-
+        authViewModel.authState.observe(viewLifecycleOwner) { state ->
+            state ?: return@observe
+            when (state) {
+                is AuthState.Loading -> Unit
+                is AuthState.Success -> findNavController(view).navigate(R.id.action_registroFragment_to_homeFragment)
+                is AuthState.Error   -> Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
             }
-
         }
 
-        // Volver al Inicio de Sesion
+        binding.btnRegistro.setOnClickListener {
+            val nombre = binding.editTextNombre.text.toString().trim()
+            val correo = binding.editTextCorreo.text.toString().trim()
+            val psswd  = binding.editTextPsswd.text.toString()
+            SessionPreferences.setRecordar(requireContext(), binding.cbRecordar.isChecked)
+            authViewModel.registrar(nombre, correo, psswd)
+        }
+
         binding.camInicioSesion.setOnClickListener {
-
-            val navController: NavController = findNavController(view)
-            navController.navigate(R.id.action_registroFragment_to_loginFragment)
-
+            findNavController(view).navigate(R.id.action_registroFragment_to_loginFragment)
         }
-
     }
 
-    // Memory Leaks
+    private fun animarLogo(logo: ImageView) {
+        // Entrada: scale desde 0.65 a 1.0 con efecto overshoot + fade in
+        logo.scaleX = 0.65f
+        logo.scaleY = 0.65f
+        logo.alpha = 0f
+        logo.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .alpha(1f)
+            .setDuration(520)
+            .setInterpolator(OvershootInterpolator(1.6f))
+            .withEndAction {
+                // Pulso sutil continuo
+                ObjectAnimator.ofFloat(logo, View.SCALE_X, 1f, 1.06f, 1f).apply {
+                    duration = 3200
+                    repeatCount = ObjectAnimator.INFINITE
+                    interpolator = AccelerateDecelerateInterpolator()
+                    start()
+                }
+                ObjectAnimator.ofFloat(logo, View.SCALE_Y, 1f, 1.06f, 1f).apply {
+                    duration = 3200
+                    repeatCount = ObjectAnimator.INFINITE
+                    interpolator = AccelerateDecelerateInterpolator()
+                    start()
+                }
+            }
+            .start()
+    }
+
     override fun onDestroyView() {
+        binding.imgLogo.animate().cancel()
+        binding.imgLogo.clearAnimation()
         super.onDestroyView()
         _binding = null
     }
-
 }

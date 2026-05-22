@@ -13,71 +13,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="80dp"
-        android:background="@color/gray_light"
-        tools:context=".ui.home.HomeFragment">
+        android:background="@color/gray_light">
 
-        <!-- TITULO -->
+        <!-- VADABARBER -->
         <TextView
             android:id="@+id/textView"
+            style="@style/VadaBarber.AppTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:fontFamily="@font/roboto"
+            android:layout_marginTop="28dp"
             android:text="@string/NombreApp"
-            android:textAllCaps="true"
-            android:textSize="62sp"
-            android:textStyle="bold"
-
-            android:shadowColor="#80000000"
-            android:shadowRadius="6"
-            android:shadowDx="3"
-            android:shadowDy="3"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/bienvenida"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:textAllCaps="true"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-
-            app:layout_constraintTop_toBottomOf="@id/textView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- BOTÓN / TEXTO VER HORARIO -->
-        <TextView
-            android:id="@+id/verHorario"
+        <!-- BIENVENIDA + acento -->
+        <LinearLayout
+            android:id="@+id/headerBienvenida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VER HORARIO"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="24dp"
-            android:background="@drawable/ver_horario_draw"
-            android:clickable="true"
-            android:focusable="true"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/bienvenida"
+            <TextView
+                android:id="@+id/bienvenida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"
+                tools:text="¡BIENVENIDO JOEL!" />
+
+            <View
+                android:layout_width="56dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <!-- VER HORARIO -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verHorario"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_ver_horario"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@id/headerBienvenida"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- ═══ CARD HORARIO (redesign) ════════════════════════════════ -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardHorario"
-            android:layout_width="250dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
             android:visibility="gone"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_subtle"
             app:layout_constraintTop_toBottomOf="@id/verHorario"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -85,73 +89,60 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:padding="20dp">
+                android:orientation="vertical">
 
-                <TextView
+                <!-- Cabecera coloreada -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="HORARIO"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:layout_marginBottom="12dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/deep_purple_500"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="12dp">
 
-                <TextView
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/titulo_horario"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="@font/grotesk"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/abierto_ahora"
+                        android:textSize="11sp"
+                        android:textColor="@color/green_300"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Filas construidas dinámicamente desde BarberiaData -->
+                <LinearLayout
+                    android:id="@+id/contenedorHorario"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Lunes - Viernes"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="09:00 - 14:00\n16:00 - 20:00"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Sábado"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="09:00 - 14:00"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:text="Domingo"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cerrado"/>
-
+                    android:orientation="vertical"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="14dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- SERVICIOS DESTACADOS -->
+        <!-- ═══ CITAS PENDIENTES (home, compacto) ══════════════════════ -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardServicios"
+            android:id="@+id/cardCitasPendientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/orange_100"
             app:layout_constraintTop_toBottomOf="@id/cardHorario"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -160,52 +151,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp">
+                android:paddingHorizontal="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SERVICIOS POPULARES"
+                    android:text="@string/titulo_citas_pendientes"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Corte clásico · 12€"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.08"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/orange_700"
                     android:gravity="center"
                     android:layout_marginBottom="8dp"/>
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/contenedorCitasHome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Barba · 8€"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp"/>
+                    android:orientation="vertical"/>
 
                 <TextView
+                    android:id="@+id/tvSinCitasHome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Corte + Barba · 18€"
-                    android:gravity="center"/>
+                    android:text="@string/sin_citas_proximas"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary_light"
+                    android:gravity="center"
+                    android:visibility="gone"/>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- ═══ NOVEDADES ═══════════════════════════════════════════════ -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardGaleria"
+            android:id="@+id/cardNovedades"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:layout_constraintTop_toBottomOf="@id/cardServicios"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/purple_50"
+            app:layout_constraintTop_toBottomOf="@id/cardCitasPendientes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -213,67 +205,356 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:padding="20dp">
+                android:padding="18dp">
 
+                <!-- Título -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="NUESTROS CORTES"
-                    android:textAlignment="center"
+                    android:text="@string/titulo_novedades"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="@font/grotesk"
+                    android:textColor="@color/deep_purple_500"
+                    android:gravity="center"
                     android:layout_marginBottom="16dp"/>
 
+                <!-- Noticia 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_marginBottom="14dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginEnd="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/corte1"
-                        app:shapeAppearanceOverlay="@style/gallery_img"
-                        app:strokeWidth="0dp"/>
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/deep_purple_500"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="2dp"/>
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/corte2"
-                        app:shapeAppearanceOverlay="@style/gallery_img"
-                        app:strokeWidth="0dp"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginStart="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/corte3"
-                        app:shapeAppearanceOverlay="@style/gallery_img"
-                        app:strokeWidth="0dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noticia1_titulo"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"
+                            android:layout_marginBottom="3dp"/>
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noticia1_cuerpo"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary_light"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noticia1_fecha"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/deep_purple_500"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/purple_300" android:alpha="0.5"
+                    android:layout_marginBottom="14dp"/>
+
+                <!-- Noticia 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/deep_purple_500"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="2dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noticia2_titulo"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_primary_light"
+                            android:layout_marginBottom="3dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noticia2_cuerpo"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_secondary_light"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/noticia2_fecha"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/deep_purple_500"/>
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- CONTACTO -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardContacto"
+        <!-- ═══ NUESTROS CORTES (galería) ══════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/seccionGaleria"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginHorizontal="24dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@id/cardNovedades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Header estilo CONTACTO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_nuestros_cortes"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!-- Carousel horizontal -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginTop="18dp"
+                android:paddingHorizontal="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Corte Clásico -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_clasico"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_corte_clasico"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Fade / Degradado -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_fade"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_fade"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Arreglo de barba -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_barba"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_barba"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Perfilado -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_perfilado"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_perfilado"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Afeitado navaja -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="12dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_navaja"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_afeitado"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                    <!-- Diseño de barba -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="140dp"
+                            android:layout_height="195dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/haircut_diseno"
+                            app:shapeAppearanceOverlay="@style/gallery_img"
+                            app:strokeWidth="0dp"/>
+
+                        <TextView
+                            android:layout_width="140dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/servicio_diseno_barba"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/grotesk"
+                            android:textColor="@color/text_secondary_light"
+                            android:gravity="center"
+                            android:layout_marginTop="7dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/desliza_ver_mas"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary_light"
+                android:gravity="end"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"/>
+
+        </LinearLayout>
+
+        <!-- ═══ SERVICIOS POPULARES ══════════════════════════════════════ -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardServicios"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:layout_constraintTop_toBottomOf="@id/cardGaleria"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/purple_50"
+            app:layout_constraintTop_toBottomOf="@id/seccionGaleria"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -281,40 +562,85 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
                 android:padding="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="CONTACTO"
+                    android:text="@string/titulo_servicios_populares"
+                    android:textAllCaps="true"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="12dp"/>
+                    android:textSize="17sp"
+                    android:letterSpacing="0.1"
+                    android:fontFamily="@font/grotesk"
+                    android:gravity="center"
+                    android:textColor="@color/deep_purple_500"
+                    android:layout_marginBottom="14dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Filas construidas dinámicamente desde BarberiaData.serviciosPopulares -->
+                <LinearLayout
+                    android:id="@+id/contenedorServicios"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btnLlamar"
-                    android:text="Llamar"
-                    android:textStyle="bold"
-                    android:padding="12dp"
-                    android:background="@drawable/ver_horario_draw"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnMapa"
-                    android:text="Cómo llegar"
-                    android:textStyle="bold"
-                    android:padding="12dp"
-                    android:background="@drawable/ver_horario_draw"/>
-
+                    android:orientation="vertical"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- ═══ CONTACTO ═════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/headerContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@id/cardServicios"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_contacto"
+                android:textAllCaps="true"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:fontFamily="@font/grotesk"
+                android:textColor="@color/text_primary_light"/>
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="3dp"
+                android:background="@color/deep_purple_500"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLlamar"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_llamar"
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="40dp"
+            app:layout_constraintTop_toBottomOf="@id/headerContacto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMapa"
+            style="@style/VadaBarber.Button.CTA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_como_llegar"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLlamar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

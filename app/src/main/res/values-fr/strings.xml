@@ -1,0 +1,116 @@
+<resources>
+
+    <!-- ── App ──────────────────────────────────────────────────── -->
+    <string name="NombreApp">VadaBarber</string>
+
+    <!-- ── Menu inférieur ────────────────────────────────────────── -->
+    <string name="nav_inicio">Accueil</string>
+    <string name="nav_nueva_cita">Rendez-vous</string>
+    <string name="nav_perfil">Profil</string>
+
+    <!-- ── Connexion ─────────────────────────────────────────────── -->
+    <string name="titulo_login">SE CONNECTER</string>
+    <string name="lbl_correo">Adresse e-mail</string>
+    <string name="hint_correo">Adresse e-mail...</string>
+    <string name="lbl_contrasena">Mot de passe</string>
+    <string name="hint_contrasena">Mot de passe...</string>
+    <string name="lbl_recordar">Se souvenir de moi</string>
+    <string name="btn_login">SE CONNECTER</string>
+    <string name="sin_cuenta">Pas encore de compte ?&#160;&#160;</string>
+    <string name="lnk_registrate">S\'inscrire</string>
+
+    <!-- ── Inscription ────────────────────────────────────────────── -->
+    <string name="titulo_registro">CRÉER UN COMPTE</string>
+    <string name="lbl_nombre">Nom d\'utilisateur</string>
+    <string name="hint_nombre">Nom d\'utilisateur...</string>
+    <string name="ya_cuenta">Vous avez déjà un compte ?&#160;&#160;</string>
+    <string name="lnk_iniciar_sesion">Se connecter</string>
+    <string name="btn_registro">S\'INSCRIRE</string>
+
+    <!-- ── Erreurs auth ────────────────────────────────────────────── -->
+    <string name="error_campos">Veuillez remplir tous les champs</string>
+    <string name="error_desconocido">Erreur inconnue</string>
+
+    <!-- ── Accueil ────────────────────────────────────────────────── -->
+    <string name="bienvenida">Bienvenue %s !</string>
+    <string name="btn_ver_horario">VOIR LES HORAIRES</string>
+    <string name="btn_ocultar_horario">MASQUER LES HORAIRES</string>
+    <string name="titulo_horario">HORAIRES</string>
+    <string name="abierto_ahora">Ouvert maintenant</string>
+    <string name="cerrado">FERMÉ</string>
+    <string name="titulo_citas_pendientes">RENDEZ-VOUS À VENIR</string>
+    <string name="sin_citas_proximas">Aucun rendez-vous à venir</string>
+    <string name="sin_citas_mensaje">Vous n\'avez pas de rendez-vous.\nRéservez-en un en appuyant ici !</string>
+    <string name="parte_agenda">Réservez-en un en appuyant ici !</string>
+    <string name="titulo_novedades">ACTUALITÉS</string>
+    <string name="noticia1_titulo">Nouvelle collection printemps 2026</string>
+    <string name="noticia1_cuerpo">Découvrez les coupes tendance de la saison, déjà disponibles en boutique.</string>
+    <string name="noticia1_fecha">15 avr. 2026</string>
+    <string name="noticia2_titulo">Horaires élargis en mai</string>
+    <string name="noticia2_cuerpo">À partir du 1er mai, nous serons également ouverts le dimanche de 10 h à 14 h.</string>
+    <string name="noticia2_fecha">1 mai 2026</string>
+    <string name="titulo_nuestros_cortes">NOS COUPES</string>
+    <string name="desliza_ver_mas">Faites glisser pour voir plus →</string>
+    <string name="titulo_servicios_populares">SERVICES POPULAIRES</string>
+    <string name="titulo_contacto">CONTACT</string>
+    <string name="btn_llamar">Appeler</string>
+    <string name="btn_como_llegar">Itinéraire</string>
+
+    <!-- ── Compte à rebours ───────────────────────────────────────── -->
+    <string name="countdown_menos_1h">Dans moins d\'1h</string>
+    <string name="countdown_horas">Dans ~%dh</string>
+    <string name="countdown_manana">Demain</string>
+    <string name="countdown_dias">Dans %d jours</string>
+
+    <!-- ── Prise de rendez-vous ───────────────────────────────────── -->
+    <string name="titulo_pedir_cita">PRENDRE RENDEZ-VOUS</string>
+    <string name="titulo_horas_disponibles">HORAIRES DISPONIBLES</string>
+    <string name="titulo_servicios_max">SERVICES (max. 2)</string>
+    <string name="lbl_total">TOTAL</string>
+    <string name="btn_ver_desglose">Voir le détail ▾</string>
+    <string name="btn_ocultar_desglose">Masquer ▴</string>
+    <string name="btn_agregar_cita">Réserver</string>
+    <string name="error_selecciona_fecha">Sélectionnez une date</string>
+    <string name="error_selecciona_hora">Sélectionnez une heure</string>
+    <string name="error_selecciona_servicio">Sélectionnez au moins un service</string>
+    <string name="msg_cita_anadida">Rendez-vous pris</string>
+    <string name="error_sesion">Erreur : session non démarrée</string>
+    <string name="error_sin_conexion">Pas de connexion internet. Connectez-vous pour réserver.</string>
+    <string name="error_sin_conexion_login">Pas de connexion. Internet requis pour se connecter.</string>
+    <string name="barberia_cerrada_domingos">La barberie est fermée le dimanche</string>
+    <string name="sin_horas_disponibles">Aucun horaire disponible pour aujourd\'hui</string>
+
+    <!-- ── Profil ─────────────────────────────────────────────────── -->
+    <string name="titulo_historial">HISTORIQUE DES RENDEZ-VOUS</string>
+    <string name="btn_cerrar_sesion">Se déconnecter</string>
+    <string name="btn_idioma">Langue</string>
+    <string name="titulo_selector_idioma">Choisir la langue</string>
+    <string name="idioma_es">🇪🇸  Español</string>
+    <string name="idioma_en">🇬🇧  English</string>
+    <string name="idioma_fr">🇫🇷  Français</string>
+    <string name="msg_cerrar_sesion_titulo">Se déconnecter</string>
+    <string name="msg_cerrar_sesion_mensaje">Êtes-vous sûr de vouloir vous déconnecter ?</string>
+    <string name="btn_si">Oui</string>
+    <string name="btn_cancelar">Annuler</string>
+
+    <!-- ── Jours du planning ─────────────────────────────────────────── -->
+    <string name="horario_lunes_viernes">Lun — Ven</string>
+    <string name="horario_sabado">Samedi</string>
+    <string name="horario_domingo">Dimanche</string>
+
+    <!-- ── Services ──────────────────────────────────────────────────── -->
+    <string name="servicio_corte_clasico">Coupe classique</string>
+    <string name="servicio_fade">Fondu / Dégradé</string>
+    <string name="servicio_barba">Taille de barbe</string>
+    <string name="servicio_perfilado">Contour</string>
+    <string name="servicio_corte_barba">Coupe + Barbe</string>
+    <string name="servicio_afeitado">Rasage au rasoir</string>
+    <string name="servicio_diseno_barba">Design de barbe</string>
+    <string name="servicio_cejas">Épilation sourcils</string>
+
+    <!-- ── Notifications ──────────────────────────────────────────── -->
+    <string name="notif_titulo_24h">Rendez-vous demain !</string>
+    <string name="notif_titulo_1h">Votre rendez-vous commence dans 1 heure</string>
+    <string name="notif_mensaje">%1$s · %2$s à %3$s</string>
+
+</resources>

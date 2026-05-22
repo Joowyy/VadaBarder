@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "418730752231",
+    "project_id": "vadabarber-b3792",
+    "storage_bucket": "vadabarber-b3792.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418730752231:android:d431dbeb5feede6ed00a42",
+        "android_client_info": {
+          "package_name": "com.example.vadabarder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp2yKgvQC_0MUElSDtFou6SCgwkXrU4D4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
